@@ -5,14 +5,15 @@
     <projectFile profileName="eSnacks">eSnacks/eSnacks.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4c14f55-4ad0-446d-9edf-7a0e6537a71c" name="Changes" comment="Updated files with new user model">
-      <change beforePath="$PROJECT_DIR$/eSnacks/Data/ApplicationDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Data/ApplicationDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eSnacks/Data/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Data/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eSnacks/Models/Restaurant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Models/Restaurant.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eSnacks/ScaffoldingReadMe.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eSnacks/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Views/Shared/_Layout.cshtml" afterDir="false" />
+    <list default="true" id="a4c14f55-4ad0-446d-9edf-7a0e6537a71c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/eSnacks/Models/ViewModels/RestaurantViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.eSnacksMVC/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.eSnacksMVC/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eSnacks/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eSnacks/Controllers/RestaurantController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Controllers/RestaurantController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eSnacks/Models/City.cs" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Models/City.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eSnacks/Views/Restaurant/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Views/Restaurant/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eSnacks/Views/Restaurant/Edit.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/Views/Restaurant/Edit.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eSnacks/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eSnacks/eSnacks.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/eSnacks/eSnacks.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +21,8 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Kuba/RiderProjects/eSnacksMVC/eSnacks/Areas/Identity/Pages/Account/Manage/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/3de46bf82ffb4c769a2b7cf16b696f691cb898/bd/55ca5e65/ControllerActionInvoker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1e8feaadf5c3fa14d36ea2a638c432a2e1a47b7837d8b83d88303c5d9c15cf/AsyncValueTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -32,16 +33,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;HotReloadSettingsPage&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.5149137",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "HotReloadSettingsPage",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.eSnacks">
     <configuration name="eSnacks" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/eSnacks/eSnacks.csproj" />
@@ -84,7 +86,8 @@
       <updated>1673790901944</updated>
       <workItem from="1673790914253" duration="8518000" />
       <workItem from="1673873032085" duration="10928000" />
-      <workItem from="1673886742682" duration="7063000" />
+      <workItem from="1673886742682" duration="7477000" />
+      <workItem from="1675358145449" duration="5743000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1673802313589</created>
@@ -114,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673886782706</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added city and restaurant simple controllers">
+      <created>1673910891795</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1673910891795</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,6 +148,52 @@
     <MESSAGE value="Init" />
     <MESSAGE value="Added Identity" />
     <MESSAGE value="Updated files with new user model" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated files with new user model" />
+    <MESSAGE value="Added city and restaurant simple controllers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added city and restaurant simple controllers" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/eSnacks/Controllers/RestaurantController.cs</url>
+          <line>62</line>
+          <properties documentPath="C:\Users\Kuba\RiderProjects\eSnacksMVC\eSnacks\Controllers\RestaurantController.cs" initialLine="64" containingFunctionPresentation="method 'Create'">
+            <startOffsets>
+              <option value="1948" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1971" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/eSnacks/Controllers/RestaurantController.cs</url>
+          <line>119</line>
+          <properties documentPath="C:\Users\Kuba\RiderProjects\eSnacksMVC\eSnacks\Controllers\RestaurantController.cs" initialLine="119" containingFunctionPresentation="method 'Edit'">
+            <startOffsets>
+              <option value="4023" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4046" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/eSnacks/Controllers/RestaurantController.cs</url>
+          <line>114</line>
+          <properties documentPath="C:\Users\Kuba\RiderProjects\eSnacksMVC\eSnacks\Controllers\RestaurantController.cs" initialLine="114" containingFunctionPresentation="method 'Edit'">
+            <startOffsets>
+              <option value="3912" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3946" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

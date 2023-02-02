@@ -15,9 +15,7 @@ namespace eSnacks.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<eSnacksUser> _userManager;
         private readonly ILogger<PersonalDataModel> _logger;
 
-        public PersonalDataModel(
-            UserManager<eSnacksUser> userManager,
-            ILogger<PersonalDataModel> logger)
+        public PersonalDataModel(UserManager<eSnacksUser> userManager, ILogger<PersonalDataModel> logger)
         {
             _userManager = userManager;
             _logger = logger;

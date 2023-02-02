@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eSnacks.Data;
 using eSnacks.Models;
+using eSnacks.Models.ViewModels;
 
 namespace eSnacks.Controllers
 {
@@ -57,12 +58,18 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RestaurantId,Name,Address,CityId")] Restaurant restaurant)
+        public async Task<IActionResult> Create([Bind("RestaurantId,Name,Address,CityId")] RestaurantViewModel restaurant)
         {
-            // TODO ViewModel to restaurant
             if (ModelState.IsValid)
             {
-                _context.Add(restaurant);
+                var newRestaurant = new Restaurant()
+                {
+                    Name = restaurant.Name,
+                    Address = restaurant.Address,
+                    CityId = restaurant.CityId
+                };
+                
+                _context.Add(newRestaurant);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -83,8 +90,17 @@ namespace eSnacks.Controllers
             {
                 return NotFound();
             }
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "CityId", restaurant.CityId);
-            return View(restaurant);
+
+            var response = new RestaurantViewModel()
+            {
+                RestaurantId = restaurant.RestaurantId,
+                Name = restaurant.Name,
+                Address = restaurant.Address,
+                CityId = restaurant.CityId
+            };
+
+            ViewData["CityId"] = new SelectList(_context.City, "CityId", "CityName", restaurant.CityId);
+            return View(response);
         }
 
         // POST: Restaurant/Edit/5
@@ -92,8 +108,10 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RestaurantId,Name,Address,CityId")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("RestaurantId,Name,Address,CityId")] RestaurantViewModel restaurant)
         {
+            
+            var dbMovie = await _context.Restaurant.FirstOrDefaultAsync(n => n.RestaurantId == restaurant.RestaurantId);
             if (id != restaurant.RestaurantId)
             {
                 return NotFound();
@@ -103,7 +121,11 @@ namespace eSnacks.Controllers
             {
                 try
                 {
-                    _context.Update(restaurant);
+                    dbMovie.Name = restaurant.Name;
+                    dbMovie.Address = restaurant.Address;
+                    dbMovie.CityId = restaurant.CityId;
+
+                    _context.Update(dbMovie);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -119,7 +141,7 @@ namespace eSnacks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "CityId", restaurant.CityId);
+            ViewData["CityId"] = new SelectList(_context.City, "CityId", "CityName", restaurant.CityId);
             return View(restaurant);
         }
 

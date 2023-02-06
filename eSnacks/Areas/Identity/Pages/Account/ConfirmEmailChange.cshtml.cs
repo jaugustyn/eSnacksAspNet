@@ -5,8 +5,8 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using eSnacks.Models;
 using Microsoft.AspNetCore.Authorization;
-using eSnacks.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

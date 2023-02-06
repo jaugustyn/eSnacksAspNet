@@ -1,7 +1,7 @@
-using eSnacks.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using eSnacks.Data;
+using eSnacks.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

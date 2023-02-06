@@ -1,4 +1,4 @@
-@using eSnacks.Areas.Identity.Data
+@using eSnacks.Models
 @inject SignInManager<eSnacksUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

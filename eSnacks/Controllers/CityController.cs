@@ -22,20 +22,20 @@ namespace eSnacks.Controllers
         // GET: City
         public async Task<IActionResult> Index()
         {
-              return _context.City != null ? 
-                          View(await _context.City.ToListAsync()) :
+              return _context.Cities != null ? 
+                          View(await _context.Cities.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.City'  is null.");
         }
 
         // GET: City/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.City == null)
+            if (id == null || _context.Cities == null)
             {
                 return NotFound();
             }
 
-            var city = await _context.City
+            var city = await _context.Cities
                 .FirstOrDefaultAsync(m => m.CityId == id);
             if (city == null)
             {
@@ -70,12 +70,12 @@ namespace eSnacks.Controllers
         // GET: City/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.City == null)
+            if (id == null || _context.Cities == null)
             {
                 return NotFound();
             }
 
-            var city = await _context.City.FindAsync(id);
+            var city = await _context.Cities.FindAsync(id);
             if (city == null)
             {
                 return NotFound();
@@ -121,12 +121,12 @@ namespace eSnacks.Controllers
         // GET: City/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.City == null)
+            if (id == null || _context.Cities == null)
             {
                 return NotFound();
             }
 
-            var city = await _context.City
+            var city = await _context.Cities
                 .FirstOrDefaultAsync(m => m.CityId == id);
             if (city == null)
             {
@@ -141,14 +141,14 @@ namespace eSnacks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.City == null)
+            if (_context.Cities == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.City'  is null.");
             }
-            var city = await _context.City.FindAsync(id);
+            var city = await _context.Cities.FindAsync(id);
             if (city != null)
             {
-                _context.City.Remove(city);
+                _context.Cities.Remove(city);
             }
             
             await _context.SaveChangesAsync();
@@ -157,7 +157,7 @@ namespace eSnacks.Controllers
 
         private bool CityExists(int id)
         {
-          return (_context.City?.Any(e => e.CityId == id)).GetValueOrDefault();
+          return (_context.Cities?.Any(e => e.CityId == id)).GetValueOrDefault();
         }
     }
 }

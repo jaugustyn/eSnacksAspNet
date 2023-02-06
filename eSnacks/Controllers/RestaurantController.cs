@@ -23,19 +23,19 @@ namespace eSnacks.Controllers
         // GET: Restaurant
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Restaurant.Include(r => r.City);
+            var applicationDbContext = _context.Restaurants.Include(r => r.City);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Restaurant/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Restaurant == null)
+            if (id == null || _context.Restaurants == null)
             {
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurant
+            var restaurant = await _context.Restaurants
                 .Include(r => r.City)
                 .FirstOrDefaultAsync(m => m.RestaurantId == id);
             if (restaurant == null)
@@ -49,7 +49,7 @@ namespace eSnacks.Controllers
         // GET: Restaurant/Create
         public IActionResult Create()
         {
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "CityName");
+            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName");
             return View();
         }
 
@@ -73,19 +73,19 @@ namespace eSnacks.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "CityName", restaurant.CityId);
+            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName", restaurant.CityId);
             return View(restaurant);
         }
 
         // GET: Restaurant/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Restaurant == null)
+            if (id == null || _context.Restaurants == null)
             {
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurant.FindAsync(id);
+            var restaurant = await _context.Restaurants.FindAsync(id);
             if (restaurant == null)
             {
                 return NotFound();
@@ -99,7 +99,7 @@ namespace eSnacks.Controllers
                 CityId = restaurant.CityId
             };
 
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "CityName", restaurant.CityId);
+            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName", restaurant.CityId);
             return View(response);
         }
 
@@ -111,7 +111,7 @@ namespace eSnacks.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("RestaurantId,Name,Address,CityId")] RestaurantViewModel restaurant)
         {
             
-            var dbMovie = await _context.Restaurant.FirstOrDefaultAsync(n => n.RestaurantId == restaurant.RestaurantId);
+            var dbMovie = await _context.Restaurants.FirstOrDefaultAsync(n => n.RestaurantId == restaurant.RestaurantId);
             if (id != restaurant.RestaurantId)
             {
                 return NotFound();
@@ -141,19 +141,19 @@ namespace eSnacks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "CityName", restaurant.CityId);
+            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName", restaurant.CityId);
             return View(restaurant);
         }
 
         // GET: Restaurant/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Restaurant == null)
+            if (id == null || _context.Restaurants == null)
             {
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurant
+            var restaurant = await _context.Restaurants
                 .Include(r => r.City)
                 .FirstOrDefaultAsync(m => m.RestaurantId == id);
             if (restaurant == null)
@@ -169,14 +169,14 @@ namespace eSnacks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Restaurant == null)
+            if (_context.Restaurants == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Restaurant'  is null.");
             }
-            var restaurant = await _context.Restaurant.FindAsync(id);
+            var restaurant = await _context.Restaurants.FindAsync(id);
             if (restaurant != null)
             {
-                _context.Restaurant.Remove(restaurant);
+                _context.Restaurants.Remove(restaurant);
             }
             
             await _context.SaveChangesAsync();
@@ -185,7 +185,7 @@ namespace eSnacks.Controllers
 
         private bool RestaurantExists(int id)
         {
-          return (_context.Restaurant?.Any(e => e.RestaurantId == id)).GetValueOrDefault();
+          return (_context.Restaurants?.Any(e => e.RestaurantId == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,7 +1,6 @@
-using eSnacks.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace eSnacks.Areas.Identity.Data;
+namespace eSnacks.Models;
 
 // Add profile data for application users by adding properties to the eSnacksUser class
 public class eSnacksUser : IdentityUser
@@ -17,5 +16,7 @@ public class eSnacksUser : IdentityUser
     
     [PersonalData]
     public DateTime DateOfBirth { get; set; }
+    
+    public IList<UserOrders> UserOrders { get; set; }
 }
 

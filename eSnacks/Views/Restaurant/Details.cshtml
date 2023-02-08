@@ -4,9 +4,53 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<section id="intro">
+<div class="container">
+    <div class="row justify-content-between gy-5">
+        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+            <h2 data-aos="fade-up" class="aos-init aos-animate">Enjoy Your Healthy<br>Delicious Food</h2>
+            <p data-aos="fade-up" data-aos-delay="100" class="aos-init aos-animate">@Model.Description</p>
+            <div class="d-flex aos-init aos-animate btn-group" data-aos="fade-up" data-aos-delay="200">
+                <a href="#menu" class="btn btn-outline-primary">Check menu</a>
+                <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="btn btn-outline-primary d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+            </div>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
+            <h2>@Model.Name</h2>
+            <h5>@Model.Address</h5>
+        </div>
+    </div>
+</div>
+</section>
+<section id="menu" style="font-family: sans-serif">
+    <div class="container">
+        <h2 class="section-header justify-content-center text-center my-5">OUR MENU</h2>
+        <ul class="nav nav-tabs d-flex justify-content-center" role="tablist">
+            @foreach (var category in Model.MenuItems.DistinctBy(x => x.CategoryId).OrderBy(x => x.Category.CategoryName))
+            {
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="@category.Category.CategoryName.Replace(" ", "")-tab" data-bs-toggle="tab" data-bs-target="#@category.Category.CategoryName.Replace(" ", "")-tab-pane" type="button" role="tab" aria-controls="@category.Category.CategoryName.Replace(" ", "")-tab-pane" aria-selected="true"><h4>@category.Category.CategoryName</h4></button>
+                </li>
+            }
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            @foreach (var menu in Model.MenuItems)
+            {
+                <div class="tab-pane fade" id="@menu.Category.CategoryName.Replace(" ", "")-tab-pane" role="tabpanel" aria-labelledby="@menu.Category.CategoryName.Replace(" ", "")-tab" tabindex="0">
+                    @foreach (var item in Model.MenuItems.Where(x => x.CategoryId.Equals(menu.CategoryId)))
+                    {
+                        <li>@item.ItemName</li>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</section>
 
-<div>
+
+
+
+<div class="my-5">
     <h4>Restaurant</h4>
     <hr />
     <dl class="row">
@@ -23,10 +67,25 @@
             @Html.DisplayFor(model => model.Address)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.City)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.City.CityId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MenuItems)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var item in Model.MenuItems.OrderBy(x => x.Category.CategoryName))
+            {
+                <p>@item.Category.CategoryName @item.ItemName</p>
+            }
         </dd>
     </dl>
 </div>

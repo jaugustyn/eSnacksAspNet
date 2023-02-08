@@ -21,7 +21,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.City)
             </th>
-            <th></th>
+            <th>
+                Description
+            </th>
+            <th>
+                Operations
+            </th>
+            <th>
+                Menu items
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -37,9 +45,18 @@
                 @Html.DisplayFor(modelItem => item.City.CityId)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.RestaurantId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.RestaurantId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.RestaurantId">Delete</a>
+            </td>
+            <td>
+                @foreach (var menu in item.MenuItems.DistinctBy(x => x.CategoryId))
+                {
+                    <li>@menu.Category.CategoryName</li>
+                }
             </td>
         </tr>
 }

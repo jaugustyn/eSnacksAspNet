@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <Nullable>enable</Nullable>
+<!--        <Nullable>enable</Nullable>-->
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>aspnet-eSnacks-099CB000-E7AC-4DA5-908F-C593F5FA8C62</UserSecretsId>
         <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
@@ -25,6 +25,21 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.13" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Areas\InOrderController\Controllers" />
+      <Folder Include="Areas\InOrderController\Data" />
+      <Folder Include="Areas\InOrderController\Models" />
+      <Folder Include="Areas\InOrderController\Views" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\InOrder\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\InOrder\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\InOrder\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\InOrder\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\InOrder\Index.cshtml" />
     </ItemGroup>
 
 </Project>

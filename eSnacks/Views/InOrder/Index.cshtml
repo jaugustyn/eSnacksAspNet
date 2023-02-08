@@ -1,0 +1,66 @@
+@model IEnumerable<eSnacks.Models.InOrder>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlacedOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuItem)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlacedOrder.PlacedOrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenuItem.MenuItemId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InOrderId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InOrderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InOrderId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

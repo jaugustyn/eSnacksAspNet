@@ -15,7 +15,13 @@ public class MenuItem
     public bool Available { get; set; }
     
     public int CategoryId { get; set; }
+    public int RestaurantId { get; set; }
+    // public int InOrderId { get; set; }
     
     [ForeignKey("CategoryId")]
     public virtual Category Category { get; set; }
+    
+    [ForeignKey("RestaurantId")]
+    public virtual Restaurant Restaurant { get; set; }
+    
 }

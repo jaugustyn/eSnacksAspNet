@@ -17,6 +17,7 @@ public class eSnacksUser : IdentityUser
     [PersonalData]
     public DateTime DateOfBirth { get; set; }
     
-    public IList<UserOrders> UserOrders { get; set; }
+    // public IList<UserOrders> UserOrders { get; set; }
+    public ICollection<PlacedOrder> PlacedOrders { get; set; }
 }
 

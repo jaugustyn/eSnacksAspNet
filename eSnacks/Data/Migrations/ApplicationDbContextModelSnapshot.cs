@@ -17,7 +17,41 @@ namespace eSnacks.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.13");
 
-            modelBuilder.Entity("eSnacks.Areas.Identity.Data.eSnacksUser", b =>
+            modelBuilder.Entity("eSnacks.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.City", b =>
+                {
+                    b.Property<int>("CityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CityName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CityId");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.eSnacksUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -26,7 +60,6 @@ namespace eSnacks.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -44,11 +77,9 @@ namespace eSnacks.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
@@ -96,23 +127,144 @@ namespace eSnacks.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("eSnacks.Models.City", b =>
+            modelBuilder.Entity("eSnacks.Models.InOrder", b =>
                 {
-                    b.Property<int>("CityId")
+                    b.Property<int>("InOrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CityName")
-                        .IsRequired()
+                    b.Property<string>("Comment")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
+                    b.Property<decimal>("ItemPrice")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CityId");
+                    b.Property<int>("MenuItemId")
+                        .HasColumnType("INTEGER");
 
-                    b.ToTable("City");
+                    b.Property<int>("PlacedOrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("InOrderId");
+
+                    b.HasIndex("MenuItemId");
+
+                    b.HasIndex("PlacedOrderId");
+
+                    b.ToTable("InOrders");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.MenuItem", b =>
+                {
+                    b.Property<int>("MenuItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Available")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Ingredients")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("MenuItemId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.ToTable("MenuItems");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.OrderStatus", b =>
+                {
+                    b.Property<int>("OrderStatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("OrderStatusId");
+
+                    b.ToTable("OrderStatuses");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.PlacedOrder", b =>
+                {
+                    b.Property<int>("PlacedOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DeliveryAddress")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EstimatedDeliveryTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("FinalPrice")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OrderStatusId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OrderTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PlacedOrderId");
+
+                    b.HasIndex("OrderStatusId")
+                        .IsUnique();
+
+                    b.HasIndex("RestaurantId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PlacedOrders");
                 });
 
             modelBuilder.Entity("eSnacks.Models.Restaurant", b =>
@@ -122,21 +274,22 @@ namespace eSnacks.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("CityId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("RestaurantId");
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Restaurant");
+                    b.ToTable("Restaurants");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -271,12 +424,75 @@ namespace eSnacks.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("eSnacks.Models.InOrder", b =>
+                {
+                    b.HasOne("eSnacks.Models.MenuItem", "MenuItem")
+                        .WithMany()
+                        .HasForeignKey("MenuItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eSnacks.Models.PlacedOrder", "PlacedOrder")
+                        .WithMany("InOrders")
+                        .HasForeignKey("PlacedOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MenuItem");
+
+                    b.Navigation("PlacedOrder");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.MenuItem", b =>
+                {
+                    b.HasOne("eSnacks.Models.Category", "Category")
+                        .WithMany("MenuItems")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("eSnacks.Models.Restaurant", "Restaurant")
+                        .WithMany("MenuItems")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Restaurant");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.PlacedOrder", b =>
+                {
+                    b.HasOne("eSnacks.Models.OrderStatus", "OrderStatus")
+                        .WithOne("PlacedOrder")
+                        .HasForeignKey("eSnacks.Models.PlacedOrder", "OrderStatusId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("eSnacks.Models.Restaurant", "Restaurant")
+                        .WithMany("PlacedOrders")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("eSnacks.Models.eSnacksUser", "User")
+                        .WithMany("PlacedOrders")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("OrderStatus");
+
+                    b.Navigation("Restaurant");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("eSnacks.Models.Restaurant", b =>
                 {
                     b.HasOne("eSnacks.Models.City", "City")
-                        .WithMany()
+                        .WithMany("Restaurants")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -293,7 +509,7 @@ namespace eSnacks.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("eSnacks.Areas.Identity.Data.eSnacksUser", null)
+                    b.HasOne("eSnacks.Models.eSnacksUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -302,7 +518,7 @@ namespace eSnacks.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("eSnacks.Areas.Identity.Data.eSnacksUser", null)
+                    b.HasOne("eSnacks.Models.eSnacksUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -317,7 +533,7 @@ namespace eSnacks.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eSnacks.Areas.Identity.Data.eSnacksUser", null)
+                    b.HasOne("eSnacks.Models.eSnacksUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -326,11 +542,43 @@ namespace eSnacks.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("eSnacks.Areas.Identity.Data.eSnacksUser", null)
+                    b.HasOne("eSnacks.Models.eSnacksUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("eSnacks.Models.Category", b =>
+                {
+                    b.Navigation("MenuItems");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.City", b =>
+                {
+                    b.Navigation("Restaurants");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.eSnacksUser", b =>
+                {
+                    b.Navigation("PlacedOrders");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.OrderStatus", b =>
+                {
+                    b.Navigation("PlacedOrder");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.PlacedOrder", b =>
+                {
+                    b.Navigation("InOrders");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.Restaurant", b =>
+                {
+                    b.Navigation("MenuItems");
+
+                    b.Navigation("PlacedOrders");
                 });
 #pragma warning restore 612, 618
         }

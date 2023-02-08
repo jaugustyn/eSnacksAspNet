@@ -23,8 +23,10 @@ namespace eSnacks.Controllers
         // GET: Restaurant
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Restaurants.Include(r => r.City);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = _context.Restaurants
+                .Include(r => r.City).Include(r => r.MenuItems).ThenInclude(mi => mi.Category);
+            
+        return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Restaurant/Details/5
@@ -37,6 +39,8 @@ namespace eSnacks.Controllers
 
             var restaurant = await _context.Restaurants
                 .Include(r => r.City)
+                .Include(x => x.MenuItems)
+                .ThenInclude(x => x.Category)
                 .FirstOrDefaultAsync(m => m.RestaurantId == id);
             if (restaurant == null)
             {
@@ -58,7 +62,7 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RestaurantId,Name,Address,CityId")] RestaurantViewModel restaurant)
+        public async Task<IActionResult> Create([Bind("RestaurantId,Name,Address,Description,CityId")] RestaurantViewModel restaurant)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +70,7 @@ namespace eSnacks.Controllers
                 {
                     Name = restaurant.Name,
                     Address = restaurant.Address,
+                    Description = restaurant.Description,
                     CityId = restaurant.CityId
                 };
                 
@@ -96,6 +101,7 @@ namespace eSnacks.Controllers
                 RestaurantId = restaurant.RestaurantId,
                 Name = restaurant.Name,
                 Address = restaurant.Address,
+                Description = restaurant.Description,
                 CityId = restaurant.CityId
             };
 
@@ -108,10 +114,10 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RestaurantId,Name,Address,CityId")] RestaurantViewModel restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("RestaurantId,Name,Address,Description,CityId")] RestaurantViewModel restaurant)
         {
             
-            var dbMovie = await _context.Restaurants.FirstOrDefaultAsync(n => n.RestaurantId == restaurant.RestaurantId);
+            var dbRestaurant = await _context.Restaurants.FirstOrDefaultAsync(n => n.RestaurantId == restaurant.RestaurantId);
             if (id != restaurant.RestaurantId)
             {
                 return NotFound();
@@ -121,11 +127,12 @@ namespace eSnacks.Controllers
             {
                 try
                 {
-                    dbMovie.Name = restaurant.Name;
-                    dbMovie.Address = restaurant.Address;
-                    dbMovie.CityId = restaurant.CityId;
+                    dbRestaurant.Name = restaurant.Name;
+                    dbRestaurant.Address = restaurant.Address;
+                    dbRestaurant.Description = restaurant.Description;
+                    dbRestaurant.CityId = restaurant.CityId;
 
-                    _context.Update(dbMovie);
+                    _context.Update(dbRestaurant);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

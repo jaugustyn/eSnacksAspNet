@@ -11,7 +11,7 @@ public class InOrder
     public int Quantity { get; set; }
     public decimal ItemPrice { get; set; }
     public decimal Price { get; set; }
-    public string? Comment { get; set; }
+    public string Comment { get; set; }
     
     public int PlacedOrderId { get; set; }
     public int MenuItemId { get; set; }
@@ -21,5 +21,5 @@ public class InOrder
     
     [ForeignKey("MenuItemId")]
     public virtual MenuItem MenuItem { get; set; }
-
+    
 }

@@ -1,8 +1,49 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@section Scripts
+{
+	<script src="~/lib/auto-complete/dist/js/autoComplete.min.js"></script>
 
+	<script>
+        const autoCompleteJS = new autoComplete({
+            placeHolder: "Enter city to find restaurants nearby",
+			data: {
+				src: async (query) => {
+				  try {
+					const source = await fetch(`/Home/GetCities?name=${query}`);
+					
+					return await source.json();
+				  } 
+				  catch (error) {
+					return error;
+				  }
+				},
+				// cache: true,
+				keys: ["cityName"]
+			},
+			resultItem: {
+				highlight: true
+			},
+			events: {
+				input: {
+					selection: (event) => {
+						const selection = event.detail.selection.value.cityName;
+						autoCompleteJS.input.value = selection;
+					}
+				}
+			}
+		});
+    </script>
+
+}
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="row my-5 justify-content-center">
+        <div class="col-3">
+            <div class="form-group autoComplete_wrapper">
+				<input id="autoComplete" type="search" dir="ltr" spellcheck=false autocorrect="off" autocomplete="off" autocapitalize="off">
+            </div>
+        </div>
+    </div>   
 </div>

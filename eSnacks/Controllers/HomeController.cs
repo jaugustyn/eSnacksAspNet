@@ -1,21 +1,36 @@
 ﻿using System.Diagnostics;
+using eSnacks.Data;
 using Microsoft.AspNetCore.Mvc;
 using eSnacks.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace eSnacks.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
+        ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName");
         return View();
+    }
+    
+    [HttpGet]
+    public async Task<JsonResult> GetCities(string name)
+    {
+        // Case-insensitive for ASCII characters A-Z
+        var cities = await _context.Cities.Where(c => EF.Functions.Collate(c.CityName, "NOCASE")
+            .StartsWith(name)).OrderBy(x => x).Take(10).ToArrayAsync();
+        return Json(cities);
     }
 
     public IActionResult Privacy()

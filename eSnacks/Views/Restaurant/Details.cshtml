@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-            <h2>@Model.Name</h2>
+            <h2>@Model.RestaurantName</h2>
             <h5>@Model.Address</h5>
         </div>
     </div>
@@ -48,17 +48,15 @@
 </section>
 
 
-
-
 <div class="my-5">
     <h4>Restaurant</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.RestaurantName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.RestaurantName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Address)

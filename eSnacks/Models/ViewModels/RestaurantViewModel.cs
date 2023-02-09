@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json.Serialization;
 
 namespace eSnacks.Models.ViewModels;
 
@@ -8,7 +9,7 @@ public class RestaurantViewModel
     
     [Display(Name = "Restaurant name")]
     [Required(ErrorMessage = "Restaurant name is required")]
-    public string Name { get; set; }
+    public string RestaurantName { get; set; }
 
     [Display(Name = "Address")]
     [Required(ErrorMessage = "Address is required")]

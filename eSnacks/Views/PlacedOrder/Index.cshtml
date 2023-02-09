@@ -71,13 +71,13 @@
                 @Html.DisplayFor(modelItem => item.Comment)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OrderStatus.OrderStatusId)
+                @Html.DisplayFor(modelItem => item.OrderStatus.Status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Restaurant.RestaurantId)
+                @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PlacedOrderId">Edit</a> |

@@ -13,9 +13,9 @@
         <form asp-action="Create" asp-controller="Restaurant">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="RestaurantName" class="control-label"></label>
+                <input asp-for="RestaurantName" class="form-control" />
+                <span asp-validation-for="RestaurantName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
@@ -29,9 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CityId" class="control-label"></label>
-                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId">
-                    <option selected disabled value="@null">--- Select City ---</option>
-                </select>
+                <select asp-for="CityId" class="form-control selectpicker border"  data-style="btn-secondary-subtle" title="Choose City" show-tick data-size="5"  asp-items="ViewBag.CityId" data-live-search="true" ></select>
                 <span asp-validation-for="CityId" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -29,6 +29,9 @@
                 @Html.DisplayNameFor(model => model.PlacedOrder)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.PlacedOrder.Restaurant)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.MenuItem)
             </th>
             <th></th>
@@ -53,7 +56,10 @@
                 @Html.DisplayFor(modelItem => item.PlacedOrder.PlacedOrderId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MenuItem.MenuItemId)
+                @Html.DisplayFor(modelItem => item.PlacedOrder.Restaurant.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenuItem.ItemName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.InOrderId">Edit</a> |

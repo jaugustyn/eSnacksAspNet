@@ -22,7 +22,7 @@ namespace eSnacks.Controllers
         // GET: OrderStatus
         public async Task<IActionResult> Index()
         {
-              return View(await _context.OrderStatuses.ToListAsync());
+              return View(await _context.OrderStatuses.Include(os => os.PlacedOrder).ToListAsync());
         }
 
         // GET: OrderStatus/Details/5
@@ -34,6 +34,8 @@ namespace eSnacks.Controllers
             }
 
             var orderStatus = await _context.OrderStatuses
+                .Include(os => os.PlacedOrder)
+                .ThenInclude(po => po.Restaurant)
                 .FirstOrDefaultAsync(m => m.OrderStatusId == id);
             if (orderStatus == null)
             {

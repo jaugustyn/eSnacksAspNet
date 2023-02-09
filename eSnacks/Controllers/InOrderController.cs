@@ -22,7 +22,7 @@ namespace eSnacks.Controllers
         // GET: InOrder
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.InOrders.Include(i => i.MenuItem).Include(i => i.PlacedOrder);
+            var applicationDbContext = _context.InOrders.Include(i => i.MenuItem).Include(i => i.PlacedOrder).ThenInclude(po => po.Restaurant);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -37,6 +37,7 @@ namespace eSnacks.Controllers
             var inOrder = await _context.InOrders
                 .Include(i => i.MenuItem)
                 .Include(i => i.PlacedOrder)
+                .ThenInclude(po => po.Restaurant)
                 .FirstOrDefaultAsync(m => m.InOrderId == id);
             if (inOrder == null)
             {
@@ -49,7 +50,7 @@ namespace eSnacks.Controllers
         // GET: InOrder/Create
         public IActionResult Create()
         {
-            ViewData["MenuItemId"] = new SelectList(_context.MenuItems, "MenuItemId", "MenuItemId");
+            ViewData["MenuItemId"] = new SelectList(_context.MenuItems, "MenuItemId", "ItemName");
             ViewData["PlacedOrderId"] = new SelectList(_context.PlacedOrders, "PlacedOrderId", "PlacedOrderId");
             return View();
         }
@@ -67,7 +68,7 @@ namespace eSnacks.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MenuItemId"] = new SelectList(_context.MenuItems, "MenuItemId", "MenuItemId", inOrder.MenuItemId);
+            ViewData["MenuItemId"] = new SelectList(_context.MenuItems, "MenuItemId", "ItemName", inOrder.MenuItemId);
             ViewData["PlacedOrderId"] = new SelectList(_context.PlacedOrders, "PlacedOrderId", "PlacedOrderId", inOrder.PlacedOrderId);
             return View(inOrder);
         }
@@ -85,7 +86,7 @@ namespace eSnacks.Controllers
             {
                 return NotFound();
             }
-            ViewData["MenuItemId"] = new SelectList(_context.MenuItems, "MenuItemId", "MenuItemId", inOrder.MenuItemId);
+            ViewData["MenuItemId"] = new SelectList(_context.MenuItems, "MenuItemId", "ItemName", inOrder.MenuItemId);
             ViewData["PlacedOrderId"] = new SelectList(_context.PlacedOrders, "PlacedOrderId", "PlacedOrderId", inOrder.PlacedOrderId);
             return View(inOrder);
         }
@@ -122,7 +123,7 @@ namespace eSnacks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MenuItemId"] = new SelectList(_context.MenuItems, "MenuItemId", "MenuItemId", inOrder.MenuItemId);
+            ViewData["MenuItemId"] = new SelectList(_context.MenuItems, "MenuItemId", "ItemName", inOrder.MenuItemId);
             ViewData["PlacedOrderId"] = new SelectList(_context.PlacedOrders, "PlacedOrderId", "PlacedOrderId", inOrder.PlacedOrderId);
             return View(inOrder);
         }
@@ -138,6 +139,7 @@ namespace eSnacks.Controllers
             var inOrder = await _context.InOrders
                 .Include(i => i.MenuItem)
                 .Include(i => i.PlacedOrder)
+                .ThenInclude(po => po.Restaurant)
                 .FirstOrDefaultAsync(m => m.InOrderId == id);
             if (inOrder == null)
             {

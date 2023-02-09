@@ -89,8 +89,8 @@ namespace eSnacks.Controllers
             {
                 return NotFound();
             }
-            ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "OrderStatusId", "OrderStatusId", placedOrder.OrderStatusId);
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantId", placedOrder.RestaurantId);
+            ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "OrderStatusId", "Status", placedOrder.OrderStatusId);
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantName", placedOrder.RestaurantId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", placedOrder.UserId);
             return View(placedOrder);
         }
@@ -127,8 +127,8 @@ namespace eSnacks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "OrderStatusId", "OrderStatusId", placedOrder.OrderStatusId);
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantId", placedOrder.RestaurantId);
+            ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "OrderStatusId", "Status", placedOrder.OrderStatusId);
+            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantName", placedOrder.RestaurantId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", placedOrder.UserId);
             return View(placedOrder);
         }

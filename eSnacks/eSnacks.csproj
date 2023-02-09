@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="bootstrap-select" Version="1.14.0-beta2" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.6" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.6" />
@@ -25,21 +26,6 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.13" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Areas\InOrderController\Controllers" />
-      <Folder Include="Areas\InOrderController\Data" />
-      <Folder Include="Areas\InOrderController\Models" />
-      <Folder Include="Areas\InOrderController\Views" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Views\InOrder\Create.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\InOrder\Delete.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\InOrder\Details.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\InOrder\Edit.cshtml" />
-      <_ContentIncludedByDefault Remove="Views\InOrder\Index.cshtml" />
     </ItemGroup>
 
 </Project>

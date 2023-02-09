@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -62,13 +58,13 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RestaurantId,Name,Address,Description,CityId")] RestaurantViewModel restaurant)
+        public async Task<IActionResult> Create([Bind("RestaurantId,RestaurantName,Address,Description,CityId")] RestaurantViewModel restaurant)
         {
             if (ModelState.IsValid)
             {
                 var newRestaurant = new Restaurant()
                 {
-                    Name = restaurant.Name,
+                    RestaurantName = restaurant.RestaurantName,
                     Address = restaurant.Address,
                     Description = restaurant.Description,
                     CityId = restaurant.CityId
@@ -99,7 +95,7 @@ namespace eSnacks.Controllers
             var response = new RestaurantViewModel()
             {
                 RestaurantId = restaurant.RestaurantId,
-                Name = restaurant.Name,
+                RestaurantName = restaurant.RestaurantName,
                 Address = restaurant.Address,
                 Description = restaurant.Description,
                 CityId = restaurant.CityId
@@ -114,7 +110,7 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RestaurantId,Name,Address,Description,CityId")] RestaurantViewModel restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("RestaurantId,RestaurantName,Address,Description,CityId")] RestaurantViewModel restaurant)
         {
             
             var dbRestaurant = await _context.Restaurants.FirstOrDefaultAsync(n => n.RestaurantId == restaurant.RestaurantId);
@@ -127,7 +123,7 @@ namespace eSnacks.Controllers
             {
                 try
                 {
-                    dbRestaurant.Name = restaurant.Name;
+                    dbRestaurant.RestaurantName = restaurant.RestaurantName;
                     dbRestaurant.Address = restaurant.Address;
                     dbRestaurant.Description = restaurant.Description;
                     dbRestaurant.CityId = restaurant.CityId;

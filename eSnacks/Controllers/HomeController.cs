@@ -27,9 +27,9 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<JsonResult> GetCities(string name)
     {
-        // Case-insensitive for ASCII characters A-Z
+        // Case-insensitive for ASCII characters A-Z (Sqlite)
         var cities = await _context.Cities.Where(c => EF.Functions.Collate(c.CityName, "NOCASE")
-            .StartsWith(name)).OrderBy(x => x).Take(10).ToArrayAsync();
+            .StartsWith(name.Trim().ToLower())).OrderBy(x => x).Take(10).ToArrayAsync();
         return Json(cities);
     }
 

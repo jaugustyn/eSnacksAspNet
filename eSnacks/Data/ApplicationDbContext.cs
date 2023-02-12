@@ -39,6 +39,7 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
             b.HasKey(c => c.CityId);
             b.HasMany<Restaurant>(c => c.Restaurants).WithOne(c => c.City)
                 .HasForeignKey(c => c.RestaurantId).OnDelete(DeleteBehavior.NoAction);
+            b.Property(c => c.CityName).UseCollation("NOCASE");
         });
 
         // Restaurant

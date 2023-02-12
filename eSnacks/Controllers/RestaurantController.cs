@@ -190,5 +190,21 @@ namespace eSnacks.Controllers
         {
           return (_context.Restaurants?.Any(e => e.RestaurantId == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> SearchRestaurants(string cityName)
+        {
+            cityName = cityName.Trim();
+            var searchCities = await _context.Restaurants.Include(r => r.City).Include(r => r.MenuItems).ThenInclude(mi => mi.Category)
+                .Where(x => x.City.CityName.Equals(cityName)).ToListAsync();
+            
+            Console.WriteLine(cityName);
+            if (searchCities.Count == 0)
+            {
+                TempData["NotFound"] = cityName;
+                return RedirectToAction("Index", "Home");
+            }
+            
+            return View("Index", searchCities);
+        }
     }
 }

@@ -41,7 +41,8 @@ namespace eSnacks.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CityName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
 
                     b.Property<string>("ZipCode")
                         .HasColumnType("TEXT");
@@ -282,7 +283,7 @@ namespace eSnacks.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("RestaurantName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("RestaurantId");

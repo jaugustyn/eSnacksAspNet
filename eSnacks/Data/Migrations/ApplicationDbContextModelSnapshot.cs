@@ -182,6 +182,9 @@ namespace eSnacks.Data.Migrations
                     b.Property<string>("ItemName")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PhotoUrl")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 

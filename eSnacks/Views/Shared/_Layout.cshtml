@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/eSnacks.styles.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css">
-    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css"> *@
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
+@await RenderSectionAsync("Styles", required: false)
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-0">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">eSnacks</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -49,14 +50,14 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="OrderStatus" asp-action="Index">OrderStatus</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown link testtes
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown link testtes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <partial name="_LoginPartial"/>
@@ -64,11 +65,11 @@
         </div>
     </nav>
 </header>
-<div class="container">
-    <main role="main" class="pb-3">
+<main role="main" class="pb-3">
+    <div class="container">
         @RenderBody()
-    </main>
-</div>
+    </div>
+</main>
 
 <footer class="border-top bg-dark text-center text-lg-start fixed-bottom">
     <div class="container p-4 text-center text-white-50">

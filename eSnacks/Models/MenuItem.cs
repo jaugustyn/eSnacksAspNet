@@ -10,6 +10,7 @@ public class MenuItem
     
     public string ItemName { get; set; }
     public string Description { get; set; }
+    public Uri PhotoUrl { get; set; }
     public string Ingredients { get; set; }
     public decimal Price { get; set; }
     public bool Available { get; set; }

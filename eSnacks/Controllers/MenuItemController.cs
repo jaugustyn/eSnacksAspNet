@@ -59,7 +59,7 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MenuItemId,ItemName,Description,Ingredients,Price,Available,CategoryId,RestaurantId")] MenuItem menuItem)
+        public async Task<IActionResult> Create([Bind("MenuItemId,ItemName,Description,Ingredients,Price,Available,PhotoUrl,CategoryId,RestaurantId")] MenuItem menuItem)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MenuItemId,ItemName,Description,Ingredients,Price,Available,CategoryId,RestaurantId")] MenuItem menuItem)
+        public async Task<IActionResult> Edit(int id, [Bind("MenuItemId,ItemName,Description,Ingredients,Price,Available,PhotoUrl,CategoryId,RestaurantId")] MenuItem menuItem)
         {
             if (id != menuItem.MenuItemId)
             {

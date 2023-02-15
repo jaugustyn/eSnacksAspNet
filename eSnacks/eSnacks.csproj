@@ -28,4 +28,14 @@
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap-input-spinner\dist\js\bootstrap-input-spinner.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap-input-spinner\dist\js\custom-editors.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap-input-spinner\LICENSE" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\static" />
+    </ItemGroup>
+
 </Project>

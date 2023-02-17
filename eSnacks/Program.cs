@@ -36,6 +36,7 @@ builder.Services.AddDefaultIdentity<eSnacksUser>(options =>
         options.Password.RequireLowercase = true;
         options.Password.RequireUppercase = true;
     })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 

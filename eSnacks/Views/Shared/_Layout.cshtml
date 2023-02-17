@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
 </head>
-<body>
+<body style="padding-top: 68px;">
     @await RenderSectionAsync("Styles", required: false)
     @section Styles{
         <style>
@@ -22,7 +22,7 @@
         </style>
     }
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ms-auto p-1" style="overflow: hidden">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light fixed-top bg-body-tertiary border-bottom box-shadow ms-auto p-1" style="overflow: hidden">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="bi bi-hexagon-fill me-2 text-danger" style="font-size:26px;"></i>

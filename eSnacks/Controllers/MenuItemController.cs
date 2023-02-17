@@ -17,7 +17,7 @@ namespace eSnacks.Controllers
             _service = service;
         }
 
-        // GET: City
+        // GET: MenuItem
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
@@ -26,7 +26,7 @@ namespace eSnacks.Controllers
         }
 
         
-        // GET: City/Details/5
+        // GET: MenuItem/Details/5
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
@@ -36,7 +36,7 @@ namespace eSnacks.Controllers
         }
 
         
-        // GET: City/Create
+        // GET: MenuItem/Create
         public async Task<IActionResult> Create()
         {
             var menuItemDropdownsData = await _service.GetNewMenuItemDropdownsValues();
@@ -46,7 +46,8 @@ namespace eSnacks.Controllers
             return View();
         }
         
-        // POST: City/Create
+        [Authorize(Roles = "User")]
+        // POST: MenuItem/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ItemName,Description,Ingredients,Price,Available,PhotoUrl,CategoryId,RestaurantId")]NewMenuItemVM menuItem)
@@ -65,7 +66,7 @@ namespace eSnacks.Controllers
         }
         
 
-        // GET: City/Edit/5
+        // GET: MenuItem/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             var menuItemDetails = await _service.GetMenuItemByIdAsync(id);
@@ -91,7 +92,7 @@ namespace eSnacks.Controllers
             return View(menuItemDetailsVM);
         }
         
-        // POST: City/Edit/5
+        // POST: MenuItem/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ItemName,Description,Ingredients,Price,Available,PhotoUrl,CategoryId,RestaurantId")] NewMenuItemVM menuItem)
@@ -126,7 +127,7 @@ namespace eSnacks.Controllers
         }
 
         
-        // GET: City/Delete/5
+        // GET: MenuItem/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             var menuItemDetails = await _service.GetByIdAsync(id);
@@ -134,7 +135,7 @@ namespace eSnacks.Controllers
             return View(menuItemDetails);
         }
 
-        // POST: City/Delete/5
+        // POST: MenuItem/Delete/5
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {

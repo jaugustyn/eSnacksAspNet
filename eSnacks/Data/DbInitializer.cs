@@ -381,7 +381,7 @@ internal class DbInitializer
                 },
                 new()
                 {
-                    ItemName = "Bigos", Description = "A hearty stew made with sauerkraut, various meats, and spices",
+                    ItemName = "Stew", Description = "A hearty stew made with sauerkraut, various meats, and spices",
                     PhotoUrl = null,
                     Ingredients = "Sauerkraut, beef, pork, sausage, mushrooms, onions, carrots, spices",
                     Available = true, Price = 25.99m, CategoryId = 3, RestaurantId = 1

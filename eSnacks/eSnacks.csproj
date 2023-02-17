@@ -35,7 +35,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Migrations" />
       <Folder Include="wwwroot\static" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Migrations\20230202175057_Updated city primary key.cs" />
+      <Compile Remove="Migrations\20230202175057_Updated city primary key.Designer.cs" />
     </ItemGroup>
 
 </Project>

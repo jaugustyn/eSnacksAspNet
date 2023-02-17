@@ -2,14 +2,18 @@
 @inject SignInManager<eSnacksUser> SignInManager
 @inject UserManager<eSnacksUser> UserManager
 
-<ul class="navbar-nav">
+<ul class="navbar-nav fw-medium">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        <li class="nav-item mx-1 px-3 nav-item-hover-li">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                <i class="bi bi-person-circle me-1" style="font-size: 26px;"></i>
+                <span class="align-text-bottom">@User.Identity?.Name!</span>
+            </a>
         </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
+        <li class="nav-item mx-1 px-3 d-flex align-items-center nav-item-hover-li">
+            <i class="bi bi-box-arrow-right d-inline-block" style="font-size: 26px;"></i>
+            <form class="d-inline-block align-text-bottom" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>

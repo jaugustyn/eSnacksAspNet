@@ -1,174 +1,159 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using eSnacks.Data;
-using eSnacks.Models;
+using eSnacks.Data.Services;
+using eSnacks.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eSnacks.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class MenuItemController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IMenuItemService _service;
 
-        public MenuItemController(ApplicationDbContext context)
+        public MenuItemController(IMenuItemService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // GET: MenuItem
+        // GET: City
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.MenuItems.Include(m => m.Category).Include(m => m.Restaurant);
-            return View(await applicationDbContext.ToListAsync());
+            var menuItems = await _service.GetAllAsync(mi => mi.Category, mi => mi.Restaurant);
+            return menuItems != null ? View(menuItems) : Problem("Entity set 'ApplicationDbContext.City' is null.");
         }
 
-        // GET: MenuItem/Details/5
-        public async Task<IActionResult> Details(int? id)
+        
+        // GET: City/Details/5
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null || _context.MenuItems == null)
-            {
-                return NotFound();
-            }
-
-            var menuItem = await _context.MenuItems
-                .Include(m => m.Category)
-                .Include(m => m.Restaurant)
-                .FirstOrDefaultAsync(m => m.MenuItemId == id);
-            if (menuItem == null)
-            {
-                return NotFound();
-            }
-
-            return View(menuItem);
+            var menuItemDetails = await _service.GetMenuItemByIdAsync(id);
+            if (menuItemDetails == null) return NotFound();
+            return View(menuItemDetails);
         }
 
-        // GET: MenuItem/Create
-        public IActionResult Create()
+        
+        // GET: City/Create
+        public async Task<IActionResult> Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantName");
+            var menuItemDropdownsData = await _service.GetNewMenuItemDropdownsValues();
+            ViewBag.CategoryId = new SelectList(menuItemDropdownsData.Categories, "Id", "CategoryName");
+            ViewBag.RestaurantId = new SelectList(menuItemDropdownsData.Restaurants, "Id", "RestaurantName");
+            
             return View();
         }
-
-        // POST: MenuItem/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        // POST: City/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MenuItemId,ItemName,Description,Ingredients,Price,Available,PhotoUrl,CategoryId,RestaurantId")] MenuItem menuItem)
+        public async Task<IActionResult> Create([Bind("ItemName,Description,Ingredients,Price,Available,PhotoUrl,CategoryId,RestaurantId")]NewMenuItemVM menuItem)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(menuItem);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var menuItemDropdownsData = await _service.GetNewMenuItemDropdownsValues();
+                ViewBag.CategoryId = new SelectList(menuItemDropdownsData.Categories, "Id", "CategoryName");
+                ViewBag.RestaurantId = new SelectList(menuItemDropdownsData.Restaurants, "Id", "RestaurantName");
+                
+                return View(menuItem);
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", menuItem.CategoryId);
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantName", menuItem.RestaurantId);
-            return View(menuItem);
+            
+            await _service.AddNewMenuItemAsync(menuItem);
+            return RedirectToAction(nameof(Index));
         }
+        
 
-        // GET: MenuItem/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: City/Edit/5
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.MenuItems == null)
-            {
-                return NotFound();
-            }
+            var menuItemDetails = await _service.GetMenuItemByIdAsync(id);
+            if (menuItemDetails == null) return NotFound();
+            
+            var menuItemDropdownsData = await _service.GetNewMenuItemDropdownsValues();
+            ViewBag.CategoryId = new SelectList(menuItemDropdownsData.Categories, "Id", "CategoryName");
+            ViewBag.RestaurantId = new SelectList(menuItemDropdownsData.Restaurants, "Id", "RestaurantName");
 
-            var menuItem = await _context.MenuItems.FindAsync(id);
-            if (menuItem == null)
+            var menuItemDetailsVM = new NewMenuItemVM()
             {
-                return NotFound();
-            }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", menuItem.CategoryId);
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantName", menuItem.RestaurantId);
-            return View(menuItem);
+                Id = menuItemDetails.Id,
+                ItemName = menuItemDetails.ItemName,
+                Description = menuItemDetails.Description,
+                PhotoUrl = menuItemDetails.PhotoUrl,
+                Ingredients = menuItemDetails.Ingredients,
+                Price = menuItemDetails.Price,
+                Available = menuItemDetails.Available,
+                CategoryId = menuItemDetails.CategoryId,
+                RestaurantId = menuItemDetails.RestaurantId
+            };
+            
+            return View(menuItemDetailsVM);
         }
-
-        // POST: MenuItem/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        // POST: City/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MenuItemId,ItemName,Description,Ingredients,Price,Available,PhotoUrl,CategoryId,RestaurantId")] MenuItem menuItem)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ItemName,Description,Ingredients,Price,Available,PhotoUrl,CategoryId,RestaurantId")] NewMenuItemVM menuItem)
         {
-            if (id != menuItem.MenuItemId)
-            {
-                return NotFound();
-            }
+            if (id != menuItem.Id) return NotFound();
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(menuItem);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MenuItemExists(menuItem.MenuItemId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                var menuItemDropdownsData = await _service.GetNewMenuItemDropdownsValues();
+                ViewBag.CategoryId = new SelectList(menuItemDropdownsData.Categories, "Id", "CategoryName");
+                ViewBag.RestaurantId = new SelectList(menuItemDropdownsData.Restaurants, "Id", "RestaurantName");
+                
+                return View(menuItem);
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", menuItem.CategoryId);
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantName", menuItem.RestaurantId);
-            return View(menuItem);
+            
+            try
+            {
+                await _service.UpdateMenuItemAsync(menuItem);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (_service.GetMenuItemByIdAsync(id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: MenuItem/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        
+        // GET: City/Delete/5
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null || _context.MenuItems == null)
-            {
-                return NotFound();
-            }
-
-            var menuItem = await _context.MenuItems
-                .Include(m => m.Category)
-                .Include(m => m.Restaurant)
-                .FirstOrDefaultAsync(m => m.MenuItemId == id);
-            if (menuItem == null)
-            {
-                return NotFound();
-            }
-
-            return View(menuItem);
+            var menuItemDetails = await _service.GetByIdAsync(id);
+            if (menuItemDetails == null) return NotFound();
+            return View(menuItemDetails);
         }
 
-        // POST: MenuItem/Delete/5
+        // POST: City/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            var menuItemDetails = await _service.GetByIdAsync(id);
+            if (menuItemDetails == null) return NotFound();
+
+            await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.MenuItems == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.MenuItems'  is null.");
-            }
-            var menuItem = await _context.MenuItems.FindAsync(id);
-            if (menuItem != null)
-            {
-                _context.MenuItems.Remove(menuItem);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var menuItemDetails = await _service.GetByIdAsync(id);
+            if (menuItemDetails == null) return NotFound();
 
-        private bool MenuItemExists(int id)
-        {
-          return _context.MenuItems.Any(e => e.MenuItemId == id);
+            await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

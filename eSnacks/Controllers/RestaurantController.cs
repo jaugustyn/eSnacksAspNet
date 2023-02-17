@@ -37,7 +37,7 @@ namespace eSnacks.Controllers
                 .Include(r => r.City)
                 .Include(x => x.MenuItems)
                 .ThenInclude(x => x.Category)
-                .FirstOrDefaultAsync(m => m.RestaurantId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {
                 return NotFound();
@@ -49,7 +49,7 @@ namespace eSnacks.Controllers
         // GET: Restaurant/Create
         public IActionResult Create()
         {
-            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+            ViewData["Id"] = new SelectList(_context.Cities, "Id", "CityName");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RestaurantId,RestaurantName,Address,Description,CityId")] RestaurantViewModel restaurant)
+        public async Task<IActionResult> Create([Bind("Id,RestaurantName,Address,Description,Id")] RestaurantVM restaurant)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace eSnacks.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName", restaurant.CityId);
+            ViewData["Id"] = new SelectList(_context.Cities, "Id", "CityName", restaurant.CityId);
             return View(restaurant);
         }
 
@@ -92,16 +92,16 @@ namespace eSnacks.Controllers
                 return NotFound();
             }
 
-            var response = new RestaurantViewModel()
+            var response = new RestaurantVM()
             {
-                RestaurantId = restaurant.RestaurantId,
+                RestaurantId = restaurant.Id,
                 RestaurantName = restaurant.RestaurantName,
                 Address = restaurant.Address,
                 Description = restaurant.Description,
                 CityId = restaurant.CityId
             };
 
-            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName", restaurant.CityId);
+            ViewData["Id"] = new SelectList(_context.Cities, "Id", "CityName", restaurant.CityId);
             return View(response);
         }
 
@@ -110,10 +110,10 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RestaurantId,RestaurantName,Address,Description,CityId")] RestaurantViewModel restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RestaurantName,Address,Description,Id")] RestaurantVM restaurant)
         {
             
-            var dbRestaurant = await _context.Restaurants.FirstOrDefaultAsync(n => n.RestaurantId == restaurant.RestaurantId);
+            var dbRestaurant = await _context.Restaurants.FirstOrDefaultAsync(n => n.Id == restaurant.RestaurantId);
             if (id != restaurant.RestaurantId)
             {
                 return NotFound();
@@ -144,7 +144,7 @@ namespace eSnacks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName", restaurant.CityId);
+            ViewData["Id"] = new SelectList(_context.Cities, "Id", "CityName", restaurant.CityId);
             return View(restaurant);
         }
 
@@ -158,7 +158,7 @@ namespace eSnacks.Controllers
 
             var restaurant = await _context.Restaurants
                 .Include(r => r.City)
-                .FirstOrDefaultAsync(m => m.RestaurantId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {
                 return NotFound();
@@ -188,7 +188,7 @@ namespace eSnacks.Controllers
 
         private bool RestaurantExists(int id)
         {
-          return (_context.Restaurants?.Any(e => e.RestaurantId == id)).GetValueOrDefault();
+          return (_context.Restaurants?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
         public async Task<IActionResult> SearchRestaurants(string cityName)
@@ -197,13 +197,13 @@ namespace eSnacks.Controllers
             var searchCities = await _context.Restaurants.Include(r => r.City).Include(r => r.MenuItems).ThenInclude(mi => mi.Category)
                 .Where(x => x.City.CityName.Equals(cityName)).ToListAsync();
             
-            Console.WriteLine(cityName);
             if (searchCities.Count == 0)
             {
                 TempData["NotFound"] = cityName;
                 return RedirectToAction("Index", "Home");
             }
             
+            TempData["CityName"] = cityName;
             return View("Index", searchCities);
         }
     }

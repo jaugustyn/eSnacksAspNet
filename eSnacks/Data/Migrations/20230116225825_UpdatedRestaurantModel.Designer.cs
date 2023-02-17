@@ -100,7 +100,7 @@ namespace eSnacks.Data.Migrations
 
             modelBuilder.Entity("eSnacks.Models.City", b =>
                 {
-                    b.Property<int>("CityId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -112,14 +112,14 @@ namespace eSnacks.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CityId");
+                    b.HasKey("Id");
 
                     b.ToTable("City");
                 });
 
             modelBuilder.Entity("eSnacks.Models.Restaurant", b =>
                 {
-                    b.Property<int>("RestaurantId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -127,16 +127,16 @@ namespace eSnacks.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CityId")
+                    b.Property<int>("Id")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("RestaurantId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("Id");
 
                     b.ToTable("Restaurant");
                 });
@@ -277,7 +277,7 @@ namespace eSnacks.Data.Migrations
                 {
                     b.HasOne("eSnacks.Models.City", "City")
                         .WithMany()
-                        .HasForeignKey("CityId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

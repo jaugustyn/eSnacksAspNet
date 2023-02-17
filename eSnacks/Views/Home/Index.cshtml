@@ -32,8 +32,18 @@
 						autoCompleteJS.input.value = selection;
 					}
 				}
-			}
+			},
+			submit: true,
 		});
+		
+		function validateInput() {
+			const input = document.getElementById('autoComplete');
+			if (input.value.trim() === '') {
+				alert('Input cannot be empty or contain only spaces.');
+				event.preventDefault();
+			}
+        }
+		
     </script>
 
 }
@@ -48,10 +58,10 @@
 			<div class="text-danger">No restaurants found in "@city"</div>
 			}
 			<div class="autoComplete_wrapper m-3">
-				<input class="border border-secondary text-center" name="cityName" id="autoComplete" type="search" dir="ltr" spellcheck="false" autocorrect="off" autocomplete="off" autocapitalize="off">
+				<input class="border border-secondary text-center" required name="cityName" id="autoComplete" type="search" dir="ltr" spellcheck="false" autocorrect="off" autocomplete="off" autocapitalize="off">
 			</div>
 			<br/>
-			<input class="btn btn-outline-secondary" type="submit" id="submit" value="Search"/>
+			<input class="btn btn-outline-secondary" type="submit" id="submit" value="Search" onclick="validateInput()"/>
 		</form>
 	</div>   
 </div>

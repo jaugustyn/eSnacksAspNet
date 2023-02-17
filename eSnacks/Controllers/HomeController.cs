@@ -20,7 +20,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        ViewData["CityId"] = new SelectList(_context.Cities, "CityId", "CityName");
+        ViewData["Id"] = new SelectList(_context.Cities, "Id", "CityName");
         return View();
     }
     

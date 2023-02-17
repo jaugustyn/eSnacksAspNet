@@ -3,7 +3,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace eSnacks.Models.ViewModels;
 
-public class RestaurantViewModel
+public class RestaurantVM
 {
     public int RestaurantId { get; set; }
     

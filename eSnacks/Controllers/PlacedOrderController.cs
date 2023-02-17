@@ -52,7 +52,7 @@ namespace eSnacks.Controllers
         public IActionResult Create()
         {
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "OrderStatusId", "OrderStatusId");
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantId");
+            ViewData["Id"] = new SelectList(_context.Restaurants, "Id", "Id");
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -62,7 +62,7 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PlacedOrderId,OrderTime,EstimatedDeliveryTime,DeliveryAddress,Price,Discount,FinalPrice,Comment,OrderStatusId,UserId,RestaurantId")] PlacedOrder placedOrder)
+        public async Task<IActionResult> Create([Bind("PlacedOrderId,OrderTime,EstimatedDeliveryTime,DeliveryAddress,Price,Discount,FinalPrice,Comment,OrderStatusId,UserId,Id")] PlacedOrder placedOrder)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace eSnacks.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "OrderStatusId", "OrderStatusId", placedOrder.OrderStatusId);
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantId", placedOrder.RestaurantId);
+            ViewData["Id"] = new SelectList(_context.Restaurants, "Id", "Id", placedOrder.RestaurantId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", placedOrder.UserId);
             return View(placedOrder);
         }
@@ -90,7 +90,7 @@ namespace eSnacks.Controllers
                 return NotFound();
             }
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "OrderStatusId", "Status", placedOrder.OrderStatusId);
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantName", placedOrder.RestaurantId);
+            ViewData["Id"] = new SelectList(_context.Restaurants, "Id", "RestaurantName", placedOrder.RestaurantId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", placedOrder.UserId);
             return View(placedOrder);
         }
@@ -100,7 +100,7 @@ namespace eSnacks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PlacedOrderId,OrderTime,EstimatedDeliveryTime,DeliveryAddress,Price,Discount,FinalPrice,Comment,OrderStatusId,UserId,RestaurantId")] PlacedOrder placedOrder)
+        public async Task<IActionResult> Edit(int id, [Bind("PlacedOrderId,OrderTime,EstimatedDeliveryTime,DeliveryAddress,Price,Discount,FinalPrice,Comment,OrderStatusId,UserId,Id")] PlacedOrder placedOrder)
         {
             if (id != placedOrder.PlacedOrderId)
             {
@@ -128,7 +128,7 @@ namespace eSnacks.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OrderStatusId"] = new SelectList(_context.OrderStatuses, "OrderStatusId", "Status", placedOrder.OrderStatusId);
-            ViewData["RestaurantId"] = new SelectList(_context.Restaurants, "RestaurantId", "RestaurantName", placedOrder.RestaurantId);
+            ViewData["Id"] = new SelectList(_context.Restaurants, "Id", "RestaurantName", placedOrder.RestaurantId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", placedOrder.UserId);
             return View(placedOrder);
         }

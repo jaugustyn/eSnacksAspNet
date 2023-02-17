@@ -5,7 +5,7 @@ namespace eSnacks.Models.ViewModels;
 
 public class RestaurantVM
 {
-    public int RestaurantId { get; set; }
+    public int Id { get; set; }
     
     [Display(Name = "Restaurant name")]
     [Required(ErrorMessage = "Restaurant name is required")]

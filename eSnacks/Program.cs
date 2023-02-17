@@ -16,6 +16,8 @@ builder.Services.AddScoped<DbInitializer>();
 builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 builder.Services.AddScoped<IMenuItemService, MenuItemService>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

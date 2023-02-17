@@ -19,7 +19,7 @@ namespace eSnacks.Data.Migrations
 
             modelBuilder.Entity("eSnacks.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -29,14 +29,14 @@ namespace eSnacks.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("eSnacks.Models.City", b =>
                 {
-                    b.Property<int>("CityId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -47,7 +47,7 @@ namespace eSnacks.Data.Migrations
                     b.Property<string>("ZipCode")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CityId");
+                    b.HasKey("Id");
 
                     b.ToTable("Cities");
                 });
@@ -137,6 +137,9 @@ namespace eSnacks.Data.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("Id")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("ItemPrice")
                         .HasColumnType("TEXT");
 
@@ -154,7 +157,7 @@ namespace eSnacks.Data.Migrations
 
                     b.HasKey("InOrderId");
 
-                    b.HasIndex("MenuItemId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("PlacedOrderId");
 
@@ -163,7 +166,7 @@ namespace eSnacks.Data.Migrations
 
             modelBuilder.Entity("eSnacks.Models.MenuItem", b =>
                 {
-                    b.Property<int>("MenuItemId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -191,7 +194,7 @@ namespace eSnacks.Data.Migrations
                     b.Property<int>("RestaurantId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("MenuItemId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
@@ -244,6 +247,9 @@ namespace eSnacks.Data.Migrations
                     b.Property<decimal>("FinalPrice")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("Id")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("OrderStatusId")
                         .HasColumnType("INTEGER");
 
@@ -273,7 +279,7 @@ namespace eSnacks.Data.Migrations
 
             modelBuilder.Entity("eSnacks.Models.Restaurant", b =>
                 {
-                    b.Property<int>("RestaurantId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -289,11 +295,33 @@ namespace eSnacks.Data.Migrations
                     b.Property<string>("RestaurantName")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("RestaurantId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
                     b.ToTable("Restaurants");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.ShoppingCartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("MenuItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ShoppingCartId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuItemId");
+
+                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -432,9 +460,7 @@ namespace eSnacks.Data.Migrations
                 {
                     b.HasOne("eSnacks.Models.MenuItem", "MenuItem")
                         .WithMany()
-                        .HasForeignKey("MenuItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Id");
 
                     b.HasOne("eSnacks.Models.PlacedOrder", "PlacedOrder")
                         .WithMany("InOrders")
@@ -500,6 +526,15 @@ namespace eSnacks.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("eSnacks.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("eSnacks.Models.MenuItem", "MenuItem")
+                        .WithMany()
+                        .HasForeignKey("MenuItemId");
+
+                    b.Navigation("MenuItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

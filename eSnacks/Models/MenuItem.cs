@@ -1,12 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using eSnacks.Data.Base;
 
 namespace eSnacks.Models;
 
-public class MenuItem
+public class MenuItem:IEntityBase
 {
     [Key]
-    public int MenuItemId { get; set; }
+    public int Id { get; set; }
     
     public string ItemName { get; set; }
     public string Description { get; set; }
@@ -19,10 +20,10 @@ public class MenuItem
     public int RestaurantId { get; set; }
     // public int InOrderId { get; set; }
     
-    [ForeignKey("CategoryId")]
+    [ForeignKey("Id")]
     public virtual Category Category { get; set; }
     
-    [ForeignKey("RestaurantId")]
+    [ForeignKey("Id")]
     public virtual Restaurant Restaurant { get; set; }
     
 }

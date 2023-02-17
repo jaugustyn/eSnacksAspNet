@@ -19,7 +19,7 @@ public class InOrder
     [ForeignKey("PlacedOrderId")]
     public virtual PlacedOrder PlacedOrder { get; set; }
     
-    [ForeignKey("MenuItemId")]
+    [ForeignKey("Id")]
     public virtual MenuItem MenuItem { get; set; }
     
 }

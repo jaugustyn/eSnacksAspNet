@@ -28,7 +28,7 @@ public class PlacedOrder
     [ForeignKey("CustomerId")]
     public virtual eSnacksUser User { get; set; }
     
-    [ForeignKey("RestaurantId")]
+    [ForeignKey("Id")]
     public virtual Restaurant Restaurant { get; set; }
     
     public ICollection<InOrder> InOrders { get; set; }

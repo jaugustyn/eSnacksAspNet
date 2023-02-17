@@ -19,6 +19,8 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
     public DbSet<eSnacks.Models.MenuItem> MenuItems { get; set; }
     public DbSet<eSnacks.Models.InOrder> InOrders { get; set; }
     public DbSet<eSnacks.Models.Category> Categories { get; set; }
+    
+    public DbSet<eSnacks.Models.ShoppingCartItem> ShoppingCartItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,16 +38,16 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
         // City
         modelBuilder.Entity<City>(b =>
         {
-            b.HasKey(c => c.CityId);
+            b.HasKey(c => c.Id);
             b.HasMany<Restaurant>(c => c.Restaurants).WithOne(c => c.City)
-                .HasForeignKey(c => c.RestaurantId).OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(c => c.Id).OnDelete(DeleteBehavior.NoAction);
             b.Property(c => c.CityName).UseCollation("NOCASE");
         });
 
         // Restaurant
         modelBuilder.Entity<Restaurant>(b =>
         {
-            b.HasKey(r => r.RestaurantId);
+            b.HasKey(r => r.Id);
             b.HasOne<City>(r => r.City).WithMany(c => c.Restaurants)
                 .HasForeignKey(r => r.CityId).OnDelete(DeleteBehavior.NoAction).IsRequired();
             b.HasMany<MenuItem>(r => r.MenuItems).WithOne(mi => mi.Restaurant)
@@ -92,7 +94,7 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
         // Menu Item
         modelBuilder.Entity<MenuItem>(b =>
         {
-            b.HasKey(mi => mi.MenuItemId);
+            b.HasKey(mi => mi.Id);
 
             b.HasOne<Category>(mi => mi.Category).WithMany(c => c.MenuItems)
                 .HasForeignKey(mi => mi.CategoryId).OnDelete(DeleteBehavior.SetNull).IsRequired();
@@ -102,7 +104,7 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
         // Menu Category
         modelBuilder.Entity<Category>(b =>
         {
-            b.HasKey(c => c.CategoryId);
+            b.HasKey(c => c.Id);
             
             b.HasMany<MenuItem>(c => c.MenuItems).WithOne(mi => mi.Category)
                 .HasForeignKey(mi => mi.CategoryId).OnDelete(DeleteBehavior.SetNull);

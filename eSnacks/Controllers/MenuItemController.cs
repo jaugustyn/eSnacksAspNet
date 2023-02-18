@@ -46,7 +46,6 @@ namespace eSnacks.Controllers
             return View();
         }
         
-        [Authorize(Roles = "User")]
         // POST: MenuItem/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

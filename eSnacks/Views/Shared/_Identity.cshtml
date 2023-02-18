@@ -1,0 +1,59 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<eSnacksUser> SignInManager
+@inject UserManager<eSnacksUser> UserManager
+
+<ul class="navbar-nav fw-medium justify-content-end">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item mx-1 px-3 nav-item-hover-li">
+            <div class="dropdown d-flex flex-column align-items-center">
+                <button class="dropdown-toggle nav-link text-dark border-0 bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle me-1" style="font-size: 26px;"></i>
+                    <span>@UserManager.GetUserName(User)</span>
+                </button>
+                
+                <ul class="dropdown-menu" aria-labelledby="profile-btn" style="left: unset !important">
+                    <li>
+                        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                            
+                            <i class="bi bi-info-circle"></i>
+                            <span class="align-text-bottom">Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Orders" asp-action="Index">
+                            <i class="bi bi-list"></i>
+                            <span>Orders</span> 
+                        </a>
+                    </li>
+
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Users">
+                                <i class="bi bi-people"></i> 
+                                <span>Users</span> 
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            
+        </li>
+        <li class="nav-item mx-1 px-3 d-flex align-items-center nav-item-hover-li">
+            <i class="bi bi-box-arrow-right d-inline-block" style="font-size: 26px;"></i>
+            <form class="d-inline-block align-text-bottom" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item mx-1 px-3 nav-item-hover-li">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item mx-1 px-3 nav-item-hover-li">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

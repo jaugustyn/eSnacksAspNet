@@ -11,9 +11,10 @@ public class Restaurant : IEntityBase
     public string RestaurantName { get; set; }
     public string Address { get; set; }
     public string Description { get; set; }
+    public Uri PhotoUrl { get; set; }
     public int CityId { get; set; }
     
-    [ForeignKey("Id")]
+    [ForeignKey("CityId")]
     public virtual City City { get; set; }
     
     public ICollection<MenuItem> MenuItems { get; set; }

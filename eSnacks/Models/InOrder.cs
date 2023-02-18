@@ -9,8 +9,7 @@ public class InOrder
     public int InOrderId { get; set; }
     
     public int Quantity { get; set; }
-    public decimal ItemPrice { get; set; }
-    public decimal Price { get; set; }
+    public double Price { get; set; }
     public string Comment { get; set; }
     
     public int PlacedOrderId { get; set; }
@@ -19,7 +18,7 @@ public class InOrder
     [ForeignKey("PlacedOrderId")]
     public virtual PlacedOrder PlacedOrder { get; set; }
     
-    [ForeignKey("Id")]
+    [ForeignKey("MenuItemId")]
     public virtual MenuItem MenuItem { get; set; }
     
 }

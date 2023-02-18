@@ -50,7 +50,7 @@ namespace eSnacks.Controllers
         // POST: Restaurant/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RestaurantName,Address,Description,CityId")]RestaurantVM restaurant)
+        public async Task<IActionResult> Create([Bind("RestaurantName,Address,PhotoUrl,Description,CityId")]RestaurantVM restaurant)
         {
             if (!ModelState.IsValid)
             {
@@ -79,6 +79,7 @@ namespace eSnacks.Controllers
                 Id = restaurantDetails.Id,
                 RestaurantName = restaurantDetails.RestaurantName,
                 Address = restaurantDetails.Address,
+                PhotoUrl = restaurantDetails.PhotoUrl,
                 Description = restaurantDetails.Description,
                 CityId = restaurantDetails.CityId,
             };
@@ -89,7 +90,7 @@ namespace eSnacks.Controllers
         // POST: Restaurant/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RestaurantName,Address,Description,CityId")] RestaurantVM restaurant)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RestaurantName,Address,PhotoUrl,Description,CityId")] RestaurantVM restaurant)
         {
             if (id != restaurant.Id) return NotFound();
 
@@ -123,22 +124,12 @@ namespace eSnacks.Controllers
         // GET: Restaurant/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            var restaurantDetails = await _service.GetByIdAsync(id);
+            var restaurantDetails = await _service.GetRestaurantByIdAsync(id);
             if (restaurantDetails == null) return NotFound();
             return View(restaurantDetails);
         }
 
         // POST: Restaurant/Delete/5
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirm(int id)
-        {
-            var restaurantDetails = await _service.GetByIdAsync(id);
-            if (restaurantDetails == null) return NotFound();
-
-            await _service.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
-        }
-        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

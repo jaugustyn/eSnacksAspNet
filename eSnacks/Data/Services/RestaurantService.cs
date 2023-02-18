@@ -54,6 +54,7 @@ public class RestaurantService : EntityBaseRepository<Restaurant>, IRestaurantSe
         {
             RestaurantName = data.RestaurantName,
             Address = data.Address,
+            PhotoUrl = data.PhotoUrl,
             Description = data.Description,
             CityId = data.CityId,
         };
@@ -69,6 +70,7 @@ public class RestaurantService : EntityBaseRepository<Restaurant>, IRestaurantSe
         {
             dbRestaurant.RestaurantName = data.RestaurantName;
             dbRestaurant.Address = data.Address;
+            dbRestaurant.PhotoUrl = data.PhotoUrl;
             dbRestaurant.Description = data.Description;
             dbRestaurant.CityId = data.CityId;
 

@@ -69,10 +69,12 @@ namespace eSnacks.Controllers
         public async Task<IActionResult> CompleteOrder()
         {
             var items = _shoppingCart.GetShoppingCartItems();
+            var price = _shoppingCart.GetShoppingCartTotal();
+            
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
 
-            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
+            await _ordersService.StoreOrderAsync(items, price, userId, userEmailAddress);
             await _shoppingCart.ClearShoppingCartAsync();
 
             return View("OrderCompleted");

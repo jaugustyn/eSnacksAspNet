@@ -99,16 +99,6 @@ namespace eSnacks.Controllers
 
         // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirm(int id)
-        {
-            var categoryDetails = await _service.GetByIdAsync(id);
-            if (categoryDetails == null) return NotFound();
-
-            await _service.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
-        }
-        
-        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

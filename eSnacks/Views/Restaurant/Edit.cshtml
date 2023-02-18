@@ -4,43 +4,44 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Restaurant</h4>
+<h1 class="mt-5 mb-3">Edit restaurant</h1>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="RestaurantName" class="control-label"></label>
                 <input asp-for="RestaurantName" class="form-control" />
                 <span asp-validation-for="RestaurantName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="Address" class="control-label"></label>
                 <input asp-for="Address" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
+                <label asp-for="PhotoUrl" class="control-label"></label>
+                <input asp-for="PhotoUrl" class="form-control" />
+                <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group my-3">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="CityId" class="control-label"></label>
                 <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
                 <span asp-validation-for="CityId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-5">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="mx-3 btn btn-outline-primary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

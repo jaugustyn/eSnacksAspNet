@@ -5,63 +5,59 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>MenuItem</h4>
+<h1 class="mt-5 mb-3">Edit menu item</h1>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="ItemName" class="control-label"></label>
                 <input asp-for="ItemName" class="form-control" />
                 <span asp-validation-for="ItemName" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="Ingredients" class="control-label"></label>
                 <input asp-for="Ingredients" class="form-control" />
                 <span asp-validation-for="Ingredients" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div class="form-group form-check my-3">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Available" /> @Html.DisplayNameFor(model => model.Available)
                 </label>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="PhotoUrl" class="control-label"></label>
                 <input asp-for="PhotoUrl" class="form-control" />
                 <span asp-validation-for="PhotoUrl" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <label asp-for="RestaurantId" class="control-label"></label>
                 <select asp-for="RestaurantId" class="form-control" asp-items="ViewBag.RestaurantId"></select>
                 <span asp-validation-for="RestaurantId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-5">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="mx-3 btn btn-outline-primary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

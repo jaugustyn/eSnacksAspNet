@@ -12,17 +12,9 @@
 </head>
 <body style="padding-top: 68px;">
     @await RenderSectionAsync("Styles", required: false)
-    @section Styles{
-        <style>
-            .nav-item-hover-li:hover{
-                               background-color: #f5f5f5;
-                               cursor: pointer;
-                               border-radius: 25px;
-                             }
-        </style>
-    }
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light fixed-top bg-body-tertiary border-bottom box-shadow ms-auto p-1" style="overflow: hidden">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light fixed-top bg-body-tertiary border-bottom box-shadow ms-auto p-1">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="bi bi-hexagon-fill me-2 text-danger" style="font-size:26px;"></i>
@@ -36,9 +28,6 @@
                     <ul class="navbar-nav flex-grow-1 ms-auto fw-normal d-flex justify-content-center align-items-center" style="font-size: 20px; ">
                         <li class="nav-item nav-item-hover-li">
                             <a class="nav-link text-dark mx-2 active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item nav-item-hover-li">
-                            <a class="nav-link text-dark mx-2" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item nav-item-hover-li">
                             <a class="nav-link text-dark mx-2" asp-area="" asp-controller="City" asp-action="Index">Cities</a>
@@ -67,8 +56,8 @@
                         @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
                     
-                    <partial name="_LoginPartial"/>
-                    @* <partial name="_Identity.cshtml" /> *@
+                    @* <partial name="_LoginPartial"/> *@
+                    <partial name="_Identity.cshtml" />
                 </div>
             </div>
         </nav>
@@ -80,7 +69,7 @@
     </main>
 
     <footer class="border-top bg-dark text-center text-lg-start fixed-bottom">
-        <div class="container p-4 text-center text-white-50">
+        <div class="container p-3 text-center text-white-50">
             &copy; 2023 - eSnacks - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-white-50">Privacy</a>
         </div>
     </footer>

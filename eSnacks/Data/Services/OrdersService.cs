@@ -15,7 +15,7 @@ public class OrdersService : IOrdersService
     {
         var orders = await _context.PlacedOrders.Include(po => po.InOrders).ThenInclude(io => io.MenuItem).Include(po => po.User).ToListAsync();
 
-        if(userRole != "Admin")
+        if(userRole != "Administrator")
         {
             orders = orders.Where(n => n.UserId == userId).ToList();
         }
@@ -23,24 +23,42 @@ public class OrdersService : IOrdersService
         return orders;
     }
 
-    public async Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, string userEmailAddress)
+    public async Task StoreOrderAsync(List<ShoppingCartItem> items, double price, string userId, string userEmailAddress)
     {
+        var orderStatus = new OrderStatus() {Status = Models.Enums.OrderStatus.Completed};
+        
+        await _context.OrderStatuses.AddAsync(orderStatus);
+        await _context.SaveChangesAsync();
+        
+        // Not fully implemented TODO
+        
         var order = new PlacedOrder()
         {
             UserId = userId,
-            // Email = userEmailAddress
+            RestaurantId = 1,
+            OrderTime = DateTime.Now.AddHours(Random.Shared.Next(1, 5)),
+            EstimatedDeliveryTime = DateTime.Now,
+            DeliveryAddress = _context.Users.FirstOrDefault(x => x.Id.Equals(userId))?.Address,
+            Price = 0,
+            Discount = 0,
+            FinalPrice = 0,
+            Comment = "Not implemented",
+            OrderStatusId = orderStatus.OrderStatusId,
         };
+        
         await _context.PlacedOrders.AddAsync(order);
         await _context.SaveChangesAsync();
-
+        
         foreach (var item in items)
         {
+            // item.MenuItem.
             var orderItem = new InOrder()
             {
-                Quantity = item.Amount,
                 MenuItemId = item.MenuItem.Id,
                 PlacedOrderId = order.PlacedOrderId,
-                Price = item.MenuItem.Price
+                Quantity = item.Quantity,
+                Price = item.MenuItem.Price,
+                Comment = "No comment",
             };
             await _context.InOrders.AddAsync(orderItem);
         }

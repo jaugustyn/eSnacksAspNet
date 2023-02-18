@@ -37,13 +37,13 @@ public class ShoppingCart
             {
                 ShoppingCartId = ShoppingCartId,
                 MenuItem = movie,
-                Amount = 1
+                Quantity = 1
             };
 
             _context.ShoppingCartItems.Add(shoppingCartItem);
         } else
         {
-            shoppingCartItem.Amount++;
+            shoppingCartItem.Quantity++;
         }
         _context.SaveChanges();
     }
@@ -54,9 +54,9 @@ public class ShoppingCart
 
         if (shoppingCartItem != null)
         {
-            if(shoppingCartItem.Amount > 1)
+            if(shoppingCartItem.Quantity > 1)
             {
-                shoppingCartItem.Amount--;
+                shoppingCartItem.Quantity--;
             } else
             {
                 _context.ShoppingCartItems.Remove(shoppingCartItem);
@@ -70,7 +70,7 @@ public class ShoppingCart
         return ShoppingCartItems ??= _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.MenuItem).ToList();
     }
 
-    public double GetShoppingCartTotal() =>  _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => decimal.ToDouble(n.MenuItem.Price * n.Amount)).Sum();
+    public double GetShoppingCartTotal() =>  _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => (double)n.MenuItem.Price * n.Quantity).Sum();
 
     public async Task ClearShoppingCartAsync()
     {

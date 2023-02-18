@@ -33,7 +33,7 @@
         <div class="row justify-content-between gy-5">
             <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column align-items-center text-lg-start">
                 <h2 class="align-self-start fw-normal mt-3" style="font-size: 2rem">Enjoy Your Healthy<br>Delicious Food!</h2>
-                <div class="align-self-start border border-1 p-3 my-5 ms-3 w-auto border-top-0 border-end-0 shadow">@Model.Description</div>
+                <div class="align-self-start border border-1 p-4 my-5 ms-3 w-auto border-top-0 border-end-0 shadow rounded-5">@Model.Description</div>
                 <div class=" d-flex justify-content-center my-3">
                     <a href="#menu" class="btn btn-danger rounded-5 mx-2" style="--bs-btn-padding-y: .25rem;">
                         <span class="fw-semibold fs-5 align-text-bottom">Check menu</span>
@@ -48,6 +48,12 @@
             <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
                 <div class="display-5 text-capitalize">@Model.RestaurantName</div>
                 <div class="ms-2 fw-light fst-italic text-secondary fs-6">@Model.Address</div>
+                <div class="mt-4">
+                    @if (Model.PhotoUrl is not null)
+                    {
+                        <img src="@Model.PhotoUrl" class="img-fluid shadow-lg rounded-5" alt="@Model.RestaurantName"/>
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -79,6 +85,8 @@
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         @foreach (var item in Model.MenuItems.Where(x => x.CategoryId.Equals(menu.CategoryId)))
                         {
+                            string uniquename = item.ItemName.Replace(" ", "") + item.Id;
+                            
                             <div class="col-sm-6 mt-5">
                                 <div class="card text-center rounded-5 mx-3 h-100 shadow-lg border-0">
                                     <div class="card-body position-relative">
@@ -96,15 +104,14 @@
                                             </svg>
                                         }
 
-                                        @* <hr/> *@
                                         <div class="row row-cols-1 mt-4 mb-0">
                                             <div class="col bottom-0">
                                                 <span class="text-muted fw-bold mx-1">@item.Price.ToString("C")</span>
-                                                <button class="border-0 bg-transparent start-0" data-bs-toggle="modal" data-bs-target="#@item.ItemName.Replace(" ", "")Modal">
+                                                <button class="border-0 bg-transparent start-0" data-bs-toggle="modal" data-bs-target="#@uniquename">
                                                     <span class="fw-bold mx-1 text-secondary">Details</span>
                                                     <img src="~/lib/bootstrap-icons/icons/box-arrow-up-right.svg" alt="Bootstrap" width="24" height="24" style="margin-top: -5px;">
                                                 </button>
-                                                <div class="modal fade" id="@item.ItemName.Replace(" ", "")Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal fade" id="@uniquename" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <div class="modal-header">

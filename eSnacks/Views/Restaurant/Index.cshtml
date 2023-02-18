@@ -1,8 +1,8 @@
-@using Humanizer
 @model IEnumerable<Restaurant>
 
 @{
     ViewData["Title"] = "Index";
+    bool isAdmin = User.Identity.IsAuthenticated && User.IsInRole("Administrator");
 }
 
 @section Styles
@@ -16,96 +16,63 @@
     </style>
 }
 
-<div class="display-3 text-center my-5">Check out Restaurants</div>
-<div class="container mt-4">
+@if (isAdmin)
+{
+    <div class="display-3 text-center my-5">
+        <span>Check out Restaurants</span>
+        <a asp-action="Create" class="btn btn-outline-primary my-3 mx-3">Create New</a>
+    </div>
+}
+else
+{
+    <div class="display-3 text-center my-5">Check out Restaurants</div>
+}
+
+<div class="container mt-4 mb-5">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
         @foreach (var item in Model)
         {
             <div class="col">
-                    <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-black">
-                <div class="card shadow mb-4 border-0 h-100">
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-black">
+                    <div class="card shadow mb-4 border-0 h-100">
                         <div class="">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            @if (item.PhotoUrl is not null)
+                            {
+                                <img src="@item.PhotoUrl" class="img-fluid" alt="@item.RestaurantName"/>
+                            }
+                            else
+                            {
+                                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                            }
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title text-capitalize mb-3 fs-4 fw-medium">@item.RestaurantName</h5>
-                            <div class="card-text text-truncate-3 mx-3 mb-4">@item.Description</div>
-                            
-                            <div class="text-dark fw-medium my-1">
+                            <div class="card-text text-truncate-3 mx-3 mb-5">@item.Description</div>
+
+                            <div class="text-dark fw-medium mb-2">
                                 Menu categories
                             </div>
                             <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
-                                @foreach (var menu in item.MenuItems.DistinctBy(x => x.CategoryId))
+                                @foreach (var menu in item.MenuItems.DistinctBy(x => x.CategoryId).OrderBy(x => x.Category.CategoryName))
                                 {
                                     <div class="d-flex align-items-center px-3">
-                                      <i class="bi bi-caret-right-fill me-1" style="font-size: 10px;"></i>
-                                      @menu.Category.CategoryName
+                                        <i class="bi bi-caret-right-fill me-1 text-dark-emphasis" style="font-size: 10px;"></i>
+                                        <span style="font-size: 15px;">@menu.Category.CategoryName</span>
                                     </div>
                                 }
                             </div>
+                            @if (isAdmin)
+                            {
+                                <div class="mb-3 text-center mt-auto">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary">Delete</a>
+                                </div>
+                            }
                         </div>
-                </div>
-                    </a>
+                    </div>
+                </a>
             </div>
         }
     </div>
 </div>
-
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.RestaurantName)
-        </th>
-        @* <th> *@
-        @*     @Html.DisplayNameFor(model => model.Address) *@
-        @* </th> *@
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Menu items
-        </th>
-        <th>
-            Operations
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RestaurantName)
-            </td>
-            @* <td> *@
-            @*     @Html.DisplayFor(modelItem => item.Address) *@
-            @* </td> *@
-            <td>
-                @Html.DisplayFor(modelItem => item.City.CityName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @foreach (var menu in item.MenuItems.DistinctBy(x => x.CategoryId))
-                {
-                    <li>@menu.Category.CategoryName</li>
-                }
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>

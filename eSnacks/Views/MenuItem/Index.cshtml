@@ -5,12 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<table class="table table-hover text-center caption-top">
+    <caption>
+        <h1 class="py-3">List of menu items</h1>
+        <p>
+            <a asp-action="Create" class="btn btn-primary my-3">Create New</a>
+        </p>
+    </caption>
     <thead>
         <tr>
             <th>
@@ -28,10 +29,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Restaurant)
             </th>
-            <th></th>
+            <th>
+                Operations
+            </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider align-middle">
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -50,9 +53,9 @@
                 @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-primary">Delete</a>
             </td>
         </tr>
 }

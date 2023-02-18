@@ -12,9 +12,9 @@ public class PlacedOrder
     public DateTime EstimatedDeliveryTime { get; set; }
     public string DeliveryAddress { get; set; }
     
-    public decimal Price { get; set; }
-    public decimal Discount { get; set; }
-    public decimal FinalPrice { get; set; }
+    public double Price { get; set; }
+    public double Discount { get; set; }
+    public double FinalPrice { get; set; }
     
     public string Comment { get; set; }
 
@@ -28,7 +28,7 @@ public class PlacedOrder
     [ForeignKey("CustomerId")]
     public virtual eSnacksUser User { get; set; }
     
-    [ForeignKey("Id")]
+    [ForeignKey("RestaurantId")]
     public virtual Restaurant Restaurant { get; set; }
     
     public ICollection<InOrder> InOrders { get; set; }

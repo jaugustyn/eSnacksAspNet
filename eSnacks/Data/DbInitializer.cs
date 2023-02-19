@@ -161,8 +161,7 @@ internal class DbInitializer
                 new()
                 {
                     RestaurantName = "Pod Koziołkiem", Address = "ul. Floriańska 33, Kraków",
-                    PhotoUrl = new Uri(
-                        "https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+                    PhotoUrl = new Uri("https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1600"),
                     Description =
                         "A cozy restaurant serving traditional Polish cuisine, with a focus on hearty meat dishes.",
                     CityId = 2
@@ -170,24 +169,21 @@ internal class DbInitializer
                 new()
                 {
                     RestaurantName = "Krowarzywa", Address = "ul. Szewska 27, Kraków",
-                    PhotoUrl = new Uri(
-                        "https://images.pexels.com/photos/1581554/pexels-photo-1581554.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+                    PhotoUrl = new Uri("https://images.pexels.com/photos/1581554/pexels-photo-1581554.jpeg?auto=compress&cs=tinysrgb&w=1600"),
                     Description = "A vegan burger joint with a variety of plant-based options and delicious sides.",
                     CityId = 2
                 },
                 new()
                 {
                     RestaurantName = "Bistro Kaprys", Address = "ul. Nowy Świat 32, Warsaw",
-                    PhotoUrl = new Uri(
-                        "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+                    PhotoUrl = new Uri("https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1600"),
                     Description = "A charming bistro with a great selection of sandwiches, salads, soups and pastas.",
                     CityId = 1
                 },
                 new()
                 {
                     RestaurantName = "Bar Mleczny Prasowy", Address = "ul. Marszałkowska 10/16, Warsaw",
-                    PhotoUrl = new Uri(
-                        "https://images.pexels.com/photos/1484516/pexels-photo-1484516.jpeg?auto=compress&cs=tinysrgb&w=1600"),
+                    PhotoUrl = new Uri("https://images.pexels.com/photos/1484516/pexels-photo-1484516.jpeg?auto=compress&cs=tinysrgb&w=1600"),
                     Description = "A classic milk bar with a variety of inexpensive and delicious Polish dishes.",
                     CityId = 1
                 },
@@ -267,7 +263,8 @@ internal class DbInitializer
                 new()
                 {
                     ItemName = "Mushroom Swiss Burger",
-                    Description = "A flavorful burger with sautéed mushrooms and Swiss cheese", PhotoUrl = null,
+                    Description = "A flavorful burger with sautéed mushrooms and Swiss cheese", 
+                    PhotoUrl = null,
                     Ingredients =
                         "Beef patty, Swiss cheese, sautéed mushrooms, lettuce, tomato, onion, pickles, ketchup, mayo, brioche bun",
                     Available = true, Price = 11.99d, CategoryId = 10, RestaurantId = 2
@@ -285,7 +282,7 @@ internal class DbInitializer
                 {
                     ItemName = "Green Curry Chicken",
                     Description = "Savory green curry with chicken, coconut milk, and vegetables", 
-                    PhotoUrl = new Uri(""),
+                    PhotoUrl = null,
                     Ingredients =
                         "Chicken, green curry paste, coconut milk, green beans, bell peppers, bamboo shoots, Thai basil, rice",
                     Available = true, Price = 14.99d, CategoryId = 14, RestaurantId = 1

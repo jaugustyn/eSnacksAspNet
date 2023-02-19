@@ -1,19 +1,19 @@
 # eSnacks
-Aplikacja webowa umożliwiająca zamawianie jedzenia z różnych restauracji. Aplikacja jest napisana w ASP.NET MVC .NET 6 przy użyciu Entity Frameworka i SQLite.
+A web application that allows you to order food from various restaurants. The application is written in ASP.NET MVC .NET 6 using Entity Framework and SQLite.
 
-### Wymagania
-Aplikacja wymaga zainstalowania następujących narzędzi:
+### Requirements
+The application requires the following tools to be installed:
 ```
 - .NET 6
-- Visual Studio lub Visual Studio Code
+- Visual Studio, Visual Studio Code or other IDEs
 ```
-## Instalacja i uruchomienie
-Sklonuj repozytorium.
+## Install and run
+Clone the repository.
 ```
 https://github.com/jaugustyn/eSnacksMVC.git
 ```
-Otwórz projekt w Visual Studio lub Visual Studio Code.
-Otwórz konsolę menedżera pakietów i uruchom poniższe polecenia w celu utworzenia bazy danych.
+Open the project in IDE.
+Open the package manager console and run the following commands to restore packages and create the database.
 ```
 Dotnet restore
 Dotnet build
@@ -21,39 +21,39 @@ Add-Migration Init
 Update-Database
 ```
 
-Uruchom aplikację.
+Run the application.
 
-### Seedowane dane
-Aplikacja ma seedowane dane, w tym dwóch użytkowników. Poniżej przedstawiam adresy e-mail oraz hasła tych użytkowników:
+### Seeded data
+The application has seeded data, including two users. Below are the email addresses and passwords of these users:
 ```
 User
 Email: user@eSnacks.com
-Hasło: zaq1@WSX
+Password: zaq1@WSX
 
 Admin
 Email: admin@eSnacks.com
-Hasło: zaq1@WSX
+Password: zaq1@WSX
 ```
-Te dane mogą być wykorzystane do zalogowania się w aplikacji i przetestowania jej funkcjonalności.
-Jednakże, w celach bezpieczeństwa, zaleca się zmianę hasła tych użytkowników po zalogowaniu się do aplikacji.
+These credentials can be used to log into the application and test its functionality.
+However, for security purposes, it is recommended to change the password of these users after logging into the application.
 
-## Opis
-### Modele
-- `eSnacksUser:` model użytkownika, rozszerza model IdentityUser o pola dotyczące imienia, nazwiska, adresu i daty urodzenia oraz kolekcję zamówień.
-- `Category:` model kategorii, zawiera nazwę kategorii, opis i kolekcję elementów menu.
-- `City:` model miasta, zawiera nazwę miasta, kod pocztowy i kolekcję restauracji.
-- `Restaurant:` model widoku restauracji, zawiera nazwę, adres, zdjęcie, opis, identyfikator miasta.
-- `MenuItem:` model widoku nowego elementu menu, zawiera nazwę, opis, zdjęcie, składniki, cenę, identyfikator kategorii i identyfikator restauracji.
-- `InOrder:` model zamówienia, zawiera ilość, cenę, komentarz, identyfikator zamówienia i identyfikator elementu menu.
-- `PlacedOrder:` model złożonego zamówienia, zawiera datę złożenia zamówienia, czas szacowany na dostawę, adres dostawy oraz kolekcję elementów zamówienia.
-- `OrderStatus:` model reprezentuje status zamówienia, zawiera pole Status, które określa nazwę statusu. Jest powiązany z PlacedOrders
+## Description
+### Models
+- `eSnacksUser:` user model, extends the IdentityUser model with fields for first name, last name, address and date of birth.
+- `Category:` category model, contains category name, description.
+- `City:` city model, includes city name, postal code.
+- `Restaurant:` restaurant model, contains name, address, photo, description, relation with cities.
+- `MenuItem:` menu item model, contains name, description, photo, ingredients, unit price, relation with categories and restaurant.
+- `PlacedOrder:` model of a placed order, contains the date the order was placed, the estimated time for delivery, the delivery address.
+- `InOrder:` Items in order model, contains quantity, price, comment, related to the placedOrder and menu item.
+- `OrderStatus:` model represents the status of an order, contains a Status field that specifies the status name. It is related to PlacedOrders.
 
-### Opis funkcjonalności
-- Rejestracja użytkowników i logowanie
-- Wybór miasta i wyświetlanie listy restauracji w danym mieście
-- Wybór restauracji i wyświetlanie menu
-- Dodawanie elementów menu do koszyka zakupowego
-- Przeglądanie i modyfikacja koszyka zakupowego
-- Składanie zamówienia
-- Przeglądanie historii zamówień
-- Zarządzanie profilem użytkownika (zmiana hasła, adresu, numeru telefonu itp.)
+### Functionality description
+- User registration and login
+- Selecting a city and displaying a list of restaurants in that city
+- Restaurant selection and menu display
+- Adding menu items to the shopping cart
+- Viewing and modifying the shopping cart
+- Placing an order
+- Viewing order history
+- Managing user profile

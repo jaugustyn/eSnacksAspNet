@@ -1,5 +1,5 @@
-# eSnacks - aplikacja do zamawiania jedzenia
-eSnacks to aplikacja webowa umożliwiająca zamawianie jedzenia z różnych restauracji. Aplikacja jest napisana w ASP.NET MVC .NET 6 przy użyciu Entity Frameworka i SQLite.
+# eSnacks
+Aplikacja webowa umożliwiająca zamawianie jedzenia z różnych restauracji. Aplikacja jest napisana w ASP.NET MVC .NET 6 przy użyciu Entity Frameworka i SQLite.
 
 ### Wymagania
 Aplikacja wymaga zainstalowania następujących narzędzi:

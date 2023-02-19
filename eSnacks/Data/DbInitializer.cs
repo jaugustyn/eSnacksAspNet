@@ -253,13 +253,14 @@ internal class DbInitializer
                 {
                     ItemName = "Buffalo chicken nuggets",
                     Description = "Spicy and crispy chicken nuggets served with blue cheese dipping sauce",
-                    PhotoUrl = null, Ingredients = "Chicken breast, hot sauce, bread crumbs, egg, blue cheese",
+                    PhotoUrl = new Uri("https://img.freepik.com/free-photo/front-view-delicious-chicken-wings-cutting-board-dark-background-meal-dinner-food-fries-sandwich-lunch-meat-color_140725-156268.jpg?size=626&ext=jpg"), Ingredients = "Chicken breast, hot sauce, bread crumbs, egg, blue cheese",
                     Available = true, Price = 12.99d, CategoryId = 1, RestaurantId = 1
                 },
                 new()
                 {
                     ItemName = "Classic Cheeseburger",
-                    Description = "Our signature burger with a juicy beef patty and melted cheese", PhotoUrl = null,
+                    Description = "Our signature burger with a juicy beef patty and melted cheese", 
+                    PhotoUrl = new Uri("https://img.freepik.com/free-photo/front-view-tasty-meat-burger-with-cheese-salad-dark-background_140725-89597.jpg?w=1800&t=st=1676796935~exp=1676797535~hmac=e55874070eabf1ba2dbec2bdc85d27c0b3e307add5481de94f2e9e969987f2e4"),
                     Ingredients = "Beef patty, cheese, lettuce, tomato, onion, pickles, ketchup, mayo, brioche bun",
                     Available = true, Price = 9.99d, CategoryId = 10, RestaurantId = 1
                 },
@@ -283,7 +284,8 @@ internal class DbInitializer
                 new()
                 {
                     ItemName = "Green Curry Chicken",
-                    Description = "Savory green curry with chicken, coconut milk, and vegetables", PhotoUrl = null,
+                    Description = "Savory green curry with chicken, coconut milk, and vegetables", 
+                    PhotoUrl = new Uri(""),
                     Ingredients =
                         "Chicken, green curry paste, coconut milk, green beans, bell peppers, bamboo shoots, Thai basil, rice",
                     Available = true, Price = 14.99d, CategoryId = 14, RestaurantId = 1
@@ -450,7 +452,7 @@ internal class DbInitializer
                 {
                     ItemName = "Chocolate Cake",
                     Description = "Moist and rich chocolate cake with chocolate frosting and a cherry on top.",
-                    PhotoUrl = null,
+                    PhotoUrl = new Uri("https://img.freepik.com/free-photo/chocolate-brownie-cake-piece-stack-plate-homemade-pastries_114579-584.jpg?size=626&ext=jpg"),
                     Ingredients =
                         "Flour, sugar, cocoa powder, baking powder, baking soda, eggs, milk, vegetable oil, vanilla extract, salt, butter, powdered sugar, cocoa powder, milk, vanilla extract, cherry.",
                     Available = true,
@@ -475,7 +477,7 @@ internal class DbInitializer
                     ItemName = "Fried Chicken Wings",
                     Description =
                         "Crispy fried chicken wings with your choice of sauce: Buffalo, BBQ, or Honey Mustard",
-                    PhotoUrl = null,
+                    PhotoUrl = new Uri("https://img.freepik.com/free-photo/crispy-fried-chicken-plate-with-salad-carrot_1150-20212.jpg?size=626&ext=jpg"),
                     Ingredients = "Chicken wings, flour, seasoning, sauce",
                     Available = true,
                     Price = 9.99d,

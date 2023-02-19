@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css">
 </head>
-<body style="padding-top: 68px;">
+<body style="padding-top: 0px;">
     @await RenderSectionAsync("Styles", required: false)
 
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light fixed-top bg-body-tertiary border-bottom box-shadow ms-auto p-1">
+        <nav class="navbar navbar-expand-xl  navbar-light bg-body-tertiary border-bottom box-shadow ms-auto p-1">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <i class="bi bi-hexagon-fill me-2 text-danger" style="font-size:26px;"></i>
@@ -24,7 +24,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav flex-grow-1 ms-auto fw-normal d-flex justify-content-center align-items-center" style="font-size: 20px; ">
                         <li class="nav-item nav-item-hover-li">
                             <a class="nav-link text-dark mx-2 active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -41,15 +41,15 @@
                         <li class="nav-item nav-item-hover-li">
                             <a class="nav-link text-dark mx-2" asp-area="" asp-controller="MenuItem" asp-action="Index">Menu Items</a>
                         </li>
-                        <li class="nav-item nav-item-hover-li">
-                            <a class="nav-link text-dark mx-2" asp-area="" asp-controller="InOrder" asp-action="Index">InOrder</a>
-                        </li>
-                        <li class="nav-item nav-item-hover-li">
-                            <a class="nav-link text-dark mx-2" asp-area="" asp-controller="PlacedOrder" asp-action="Index">PlacedOrder</a>
-                        </li>
-                        <li class="nav-item nav-item-hover-li">
-                            <a class="nav-link text-dark mx-2" asp-area="" asp-controller="OrderStatus" asp-action="Index">OrderStatus</a>
-                        </li>
+                        @* <li class="nav-item nav-item-hover-li"> *@
+                        @*     <a class="nav-link text-dark mx-2" asp-area="" asp-controller="InOrder" asp-action="Index">InOrder</a> *@
+                        @* </li> *@
+                        @* <li class="nav-item nav-item-hover-li"> *@
+                        @*     <a class="nav-link text-dark mx-2" asp-area="" asp-controller="PlacedOrder" asp-action="Index">PlacedOrder</a> *@
+                        @* </li> *@
+                        @* <li class="nav-item nav-item-hover-li"> *@
+                        @*     <a class="nav-link text-dark mx-2" asp-area="" asp-controller="OrderStatus" asp-action="Index">OrderStatus</a> *@
+                        @* </li> *@
                     </ul>
                     
                     <ul class="navbar-nav">

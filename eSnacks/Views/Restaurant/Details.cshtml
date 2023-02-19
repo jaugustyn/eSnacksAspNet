@@ -33,7 +33,9 @@
         <div class="row justify-content-between gy-5">
             <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column align-items-center text-lg-start">
                 <h2 class="align-self-start fw-normal mt-3" style="font-size: 2rem">Enjoy Your Healthy<br>Delicious Food!</h2>
-                <div class="align-self-start border border-1 p-4 my-5 ms-3 w-auto border-top-0 border-end-0 shadow rounded-5">@Model.Description</div>
+                <div class="align-self-start border border-1 p-4 my-5 ms-3 w-auto border-top-0 border-end-0 shadow rounded-5 position-relative">
+                    @Model.Description
+                </div>
                 <div class=" d-flex justify-content-center my-3">
                     <a href="#menu" class="btn btn-danger rounded-5 mx-2" style="--bs-btn-padding-y: .25rem;">
                         <span class="fw-semibold fs-5 align-text-bottom">Check menu</span>
@@ -57,7 +59,7 @@
             </div>
         </div>
     </div>
-</section>,
+</section>
 <section id="menu" class="mb-5">
     <div class="container">
         <h2 class="section-header justify-content-center text-center my-5 display-5">OUR MENU</h2>
@@ -93,7 +95,7 @@
                                         <h5 class="text-muted card-title fst-italic text-center text-capitalize row justify-content-center mb-3">@item.ItemName</h5>
                                         @if (item.PhotoUrl is not null)
                                         {
-                                            <img src="@item.PhotoUrl" class="img-fluid w-75" style="max-width: 250px; max-height: 170px;" alt="@item.ItemName"/>
+                                            <img src="@item.PhotoUrl" class="img-fluid w-75 rounded-5" style="max-width: 250px; max-height: 170px;" alt="@item.ItemName"/>
                                         }
                                         else
                                         {
@@ -166,22 +168,20 @@
                                     </div>
                                     <div class="card-footer bg-light hstack rounded-bottom-5 border-0 p-3">
                                         <div class="number-input col">
-                                            <button onclick="this.parentNode.querySelector('input[id=quantity]').stepDown()" class="border-0 bg-transparent">
+                                            <button onclick="this.parentNode.querySelector('input[id=quantity]').stepDown()" class="border-0 bg-transparent" disabled>
                                                 <img src="~/lib/bootstrap-icons/icons/dash-lg.svg" alt="Bootstrap" width="20" height="20">
                                             </button>
-                                            <input class="border-0 bg-transparent fw-bold text-center" min="1" max="10" name="quantity" value="1" id="quantity" type="number" style="-webkit-appearance: none ; margin: 0; -moz-appearance: textfield">
-                                            <button onclick="this.parentNode.querySelector('input[id=quantity]').stepUp()" class="border-0 bg-transparent">
+                                            <input class="border-0 bg-transparent fw-bold text-center" min="1" max="10" name="quantity" value="1" id="quantity" type="number" style="-webkit-appearance: none ; margin: 0; -moz-appearance: textfield" disabled>
+                                            <button onclick="this.parentNode.querySelector('input[id=quantity]').stepUp()" class="border-0 bg-transparent" disabled>
                                                 <img src="~/lib/bootstrap-icons/icons/plus-lg.svg" alt="Bootstrap" width="20" height="20">
                                             </button>
                                         </div>
 
-                                        <div class="col">
-                                            <button class="btn btn-sm btn-outline-secondary rounded-5" type="button" value="Add to cart" id="cart" style="--bs-btn-padding-y: .0rem;">
-                                                <a class="mx-2 mb-1" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
-                                                    <span class="fw-bold me-1">Add to cart</span>
-                                                    <i id="cart-plus" class="bi-cart-plus fw-bold" style="font-size: 20px;"></i>
-                                                </a>
-                                            </button>
+                                        <div class="col d-flex justify-content-center">
+                                              <a class="mx-2 btn btn-sm btn-outline-secondary rounded-5 d-flex align-items-center" style="--bs-btn-padding-y: .1rem;" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
+                                                <span class="fw-bold me-1">Add to cart</span>
+                                                <i id="cart-plus" class="bi-cart-plus fw-bold" style="font-size: 20px;"></i>
+                                              </a>
                                         </div>
                                     </div>
                                 </div>

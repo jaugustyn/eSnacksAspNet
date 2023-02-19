@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eSnacks.Controllers
 {
+    
     public class AccountController : Controller
     {
         private readonly UserManager<eSnacksUser> _userManager;

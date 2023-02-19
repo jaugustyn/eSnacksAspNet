@@ -67,7 +67,7 @@ public class ShoppingCart
 
     public List<ShoppingCartItem> GetShoppingCartItems()
     {
-        return ShoppingCartItems ??= _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.MenuItem).ToList();
+        return ShoppingCartItems ??= _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.MenuItem).ThenInclude(mi => mi.Restaurant).ToList();
     }
 
     public double GetShoppingCartTotal() =>  _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => (double)n.MenuItem.Price * n.Quantity).Sum();

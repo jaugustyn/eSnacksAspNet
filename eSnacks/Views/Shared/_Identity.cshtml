@@ -2,10 +2,10 @@
 @inject SignInManager<eSnacksUser> SignInManager
 @inject UserManager<eSnacksUser> UserManager
 
-<ul class="navbar-nav fw-medium justify-content-end">
+<ul class="navbar-nav fw-medium justify-content-end position-relative d-flex">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item mx-1 px-3 nav-item-hover-li">
+        <li class="nav-item mx-1 px-3 nav-item-hover-li" style="padding-top: -15px;">
             <div class="dropdown d-flex flex-column align-items-center">
                 <button class="dropdown-toggle nav-link text-dark border-0 bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-person-circle me-1" style="font-size: 26px;"></i>

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using eSnacks.Models;
-using Humanizer;
-using OrderStatus = eSnacks.Models.Enums.OrderStatus;
 
 namespace eSnacks.Data;
 
@@ -40,8 +38,8 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
         {
             b.HasKey(c => c.Id);
             b.HasMany<Restaurant>(c => c.Restaurants).WithOne(c => c.City)
-                .HasForeignKey(c => c.Id).OnDelete(DeleteBehavior.NoAction);
-            b.Property(c => c.CityName).UseCollation("NOCASE");
+                .HasForeignKey(c => c.Id);
+            b.Property(c => c.CityName).UseCollation("SQL_Latin1_General_CP1_CI_AS");
         });
 
         // Restaurant
@@ -49,7 +47,7 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
         {
             b.HasKey(r => r.Id);
             b.HasOne<City>(r => r.City).WithMany(c => c.Restaurants)
-                .HasForeignKey(r => r.CityId).OnDelete(DeleteBehavior.NoAction).IsRequired();
+                .HasForeignKey(r => r.CityId);
             b.HasMany<MenuItem>(r => r.MenuItems).WithOne(mi => mi.Restaurant)
                 .HasForeignKey(mi => mi.RestaurantId);
             b.HasMany<PlacedOrder>(r => r.PlacedOrders).WithOne(po => po.Restaurant)
@@ -61,13 +59,13 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
         {
             b.HasKey(po => po.PlacedOrderId);
             b.HasOne<Models.OrderStatus>(po => po.OrderStatus).WithOne(os => os.PlacedOrder)
-                .HasForeignKey<PlacedOrder>(po => po.OrderStatusId).IsRequired();
+                .HasForeignKey<PlacedOrder>(po => po.OrderStatusId);
             b.HasOne<Restaurant>(po => po.Restaurant).WithMany(r => r.PlacedOrders)
                 .HasForeignKey(po => po.RestaurantId);
             b.HasOne<eSnacksUser>(po => po.User).WithMany(u => u.PlacedOrders)
                 .HasForeignKey(po => po.UserId);
             b.HasMany<InOrder>(po => po.InOrders).WithOne(io => io.PlacedOrder)
-                .HasForeignKey(io => io.PlacedOrderId).OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(io => io.PlacedOrderId);
         });
         
         // In Order
@@ -75,7 +73,7 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
         {
             b.HasKey(io => io.InOrderId);
             b.HasOne<PlacedOrder>(io => io.PlacedOrder).WithMany(po => po.InOrders)
-                .HasForeignKey(io => io.PlacedOrderId).IsRequired();
+                .HasForeignKey(io => io.PlacedOrderId).OnDelete(DeleteBehavior.NoAction);
             // b.HasOne(io => io.MenuItem).WithOne(x => x.Restaurant)
         });
 
@@ -84,7 +82,7 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
         {
             b.HasKey(os => os.OrderStatusId);
             b.HasOne<PlacedOrder>(os => os.PlacedOrder).WithOne(po => po.OrderStatus)
-                .HasForeignKey<PlacedOrder>(po => po.OrderStatusId).OnDelete(DeleteBehavior.Restrict).IsRequired();
+                .HasForeignKey<PlacedOrder>(po => po.OrderStatusId);
             
             //Shadow properties
             b.Property<DateTime>("CreatedDate");
@@ -97,7 +95,7 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
             b.HasKey(mi => mi.Id);
 
             b.HasOne<Category>(mi => mi.Category).WithMany(c => c.MenuItems)
-                .HasForeignKey(mi => mi.CategoryId).OnDelete(DeleteBehavior.SetNull).IsRequired();
+                .HasForeignKey(mi => mi.CategoryId);
             b.HasOne<Restaurant>(mi => mi.Restaurant).WithMany(r => r.MenuItems).HasForeignKey(mi => mi.RestaurantId);
         });
         
@@ -107,7 +105,7 @@ public class ApplicationDbContext : IdentityDbContext<eSnacksUser>
             b.HasKey(c => c.Id);
             
             b.HasMany<MenuItem>(c => c.MenuItems).WithOne(mi => mi.Category)
-                .HasForeignKey(mi => mi.CategoryId).OnDelete(DeleteBehavior.SetNull);
+                .HasForeignKey(mi => mi.CategoryId);
         });
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

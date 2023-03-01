@@ -18,7 +18,6 @@ public class MenuItem:IEntityBase
     
     public int CategoryId { get; set; }
     public int RestaurantId { get; set; }
-    // public int InOrderId { get; set; }
     
     [ForeignKey("CategoryId")]
     public virtual Category Category { get; set; }

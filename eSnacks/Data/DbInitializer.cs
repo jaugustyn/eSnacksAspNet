@@ -1,39 +1,40 @@
 using eSnacks.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace eSnacks.Data;
 
 public static class DbInitializerExtension
 {
-    public static IApplicationBuilder SeedSqlite(this IApplicationBuilder app)
+    public static void SeedDatabase(IApplicationBuilder app)
     {
         ArgumentNullException.ThrowIfNull(app, nameof(app));
 
         using var scope = app.ApplicationServices.CreateScope();
         var services = scope.ServiceProvider;
+        
         try
         {
             var context = services.GetRequiredService<ApplicationDbContext>();
-            DbInitializer.Initialize(context);
-            DbInitializer.SeedUsersAndRoles(context);
+            context.Database.EnsureCreated();
+            
+            DbInitializer.Initialize(context).Wait();
+            DbInitializer.SeedUsersAndRoles(context).Wait();
         }
         catch (Exception ex)
         {
             var logger = services.GetRequiredService<ILogger<Program>>();
             logger.LogError(ex, "An error occurred while seeding the database.");
         }
-
-        return app;
     }
 }
 
 internal class DbInitializer
 {
-    public static async void Initialize(ApplicationDbContext context)
+    public static async Task Initialize(ApplicationDbContext context)
     {
         ArgumentNullException.ThrowIfNull(context, nameof(context));
-        await context.Database.EnsureCreatedAsync();
 
         if (!context.Categories.Any())
         {
@@ -499,10 +500,10 @@ internal class DbInitializer
         }
     }
 
-    public static async void SeedUsersAndRoles(ApplicationDbContext context)
+    public static async Task SeedUsersAndRoles(ApplicationDbContext context)
     {
         ArgumentNullException.ThrowIfNull(context, nameof(context));
-        await context.Database.EnsureCreatedAsync();
+        // await context.Database.EnsureCreatedAsync();
 
         //Roles
 

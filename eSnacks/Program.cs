@@ -1,3 +1,4 @@
+using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using eSnacks.Data;
@@ -9,10 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// DotNetEnv.Env.Load();
-// var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// If docker connection string 
+var connectionString = builder.Configuration.GetConnectionString("DockerConnection") ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter(); // provides helpful error information in development environment.
@@ -60,10 +59,8 @@ else
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    
 }
 
-    
 // Seed database
 DbInitializerExtension.SeedDatabase(app);
 

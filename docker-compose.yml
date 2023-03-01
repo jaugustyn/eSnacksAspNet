@@ -2,16 +2,23 @@ version: "3.9"
 
 services:
   web:
-    build: eSnacks/
+    build: .
     ports:
       - "80:80"
     depends_on:
       - db
+    environment:
+      CONNECTIONSTRINGS__DOCKERCONNECTION: "Server=db;Database=esnacks-db;User ID=SA;Password=zaq1@WSX;TrustServerCertificate=true;"
   db:
+    container_name: db
     image: "mcr.microsoft.com/mssql/server:2022-latest"
+    ports:
+      - "1433:1433"
     environment:
       SA_PASSWORD: "zaq1@WSX"
       ACCEPT_EULA: "Y"
-    container_name: db
-    ports:
-      - "1433:1433"
+    restart: always
+    volumes:
+      - mssql-data:/var/lib/mssqlserver/data
+volumes:
+  mssql-data:

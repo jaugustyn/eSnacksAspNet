@@ -4,18 +4,19 @@ EXPOSE 80
 
 # Sets the working directory and copy projects
 WORKDIR /app
-COPY . ./
 
 # Restore as distinct layers
+COPY eSnacks/*.csproj .
 RUN dotnet restore
 
 # Build and publish a release
-RUN dotnet publish -c Release -o out
+COPY eSnacks/. .
+RUN dotnet publish -c Release -o publish
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=build-env /app/publish .
 
 ENTRYPOINT ["dotnet", "eSnacks.dll"]
 

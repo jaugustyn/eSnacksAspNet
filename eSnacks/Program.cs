@@ -54,9 +54,6 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
-    
-    // Seed database
-    DbInitializerExtension.SeedDatabase(app);
 }
 else
 {
@@ -66,6 +63,9 @@ else
     
 }
 
+    
+// Seed database
+DbInitializerExtension.SeedDatabase(app);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

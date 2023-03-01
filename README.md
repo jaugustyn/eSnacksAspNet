@@ -1,14 +1,15 @@
 # eSnacks
-A web application that allows you to order food from various restaurants. The application is written in ASP.NET MVC .NET 6 using Entity Framework and SqlServer.
+A web application that allows you to order food from various restaurants.
+The application is written in Asp.Net Core using Entity Framework and SqlServer.
 
 ### Requirements
 The application requires the following tools to be installed:
 ```
-- .NET 6
-- Visual Studio, Visual Studio Code or other IDEs
+- SDK .NET 6
+- Visual Studio, Visual Studio Code or other IDE
 - Microsoft SQL Server 2012 or newer
 ```
-## Install and run
+### Install and run
 Clone the repository.
 ```
 https://github.com/jaugustyn/eSnacksMVC.git
@@ -23,6 +24,12 @@ Update-Database
 ```
 
 Run the application.
+
+### Docker compose
+```
+docker-compose build
+docker-compose up
+```
 
 ### Seeded data
 The application has seeded data, including two users. Below are the email addresses and passwords of these users:

@@ -1,6 +1,6 @@
 # eSnacks
 A web application that allows you to order food from various restaurants.
-The application is written in Asp.Net Core using Entity Framework and SqlServer.
+The application is written in Asp.Net Core using Entity Framework and MSSqlServer.
 
 ### Requirements
 The application requires the following tools to be installed:

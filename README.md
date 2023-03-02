@@ -65,3 +65,6 @@ However, for security purposes, it is recommended to change the password of thes
 - Placing an order
 - Viewing order history
 - Managing user profile
+
+### Page example
+![](eSnacks/wwwroot/static/Screenshot_3.png)

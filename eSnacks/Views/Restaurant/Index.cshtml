@@ -16,23 +16,19 @@
     </style>
 }
 
-@if (isAdmin)
-{
+
+<div class="container">
     <div class="display-3 text-center my-5">
         <span>Check out Restaurants</span>
-        <a asp-action="Create" class="btn btn-outline-primary my-3 mx-3">Create New</a>
+        @if (isAdmin)
+        {
+            <a asp-action="Create" class="btn btn-outline-primary my-3 mx-3">Create New</a>
+        }
     </div>
-}
-else
-{
-    <div class="display-3 text-center my-5">Check out Restaurants</div>
-}
-
-<div class="container mt-4 mb-5">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5 my-1">
         @foreach (var item in Model)
         {
-            <div class="col">
+            <div class="col mb-3">
                 <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-black">
                     <div class="card shadow mb-4 border-0 h-100">
                         <div class="">
